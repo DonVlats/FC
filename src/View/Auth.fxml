@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AuthController">
+   <children>
+      <Button id="OkButton" defaultButton="true" layoutX="180.0" layoutY="276.0" mnemonicParsing="false" onAction="#OkClicked" text="Далі" />
+      <Button id="CancelButton" cancelButton="true" layoutX="349.0" layoutY="276.0" mnemonicParsing="false" onAction="#CencelClicked" text="Відміна" />
+      <TextField id="UserNameFiel" fx:id="UserNameFiel" layoutX="226.0" layoutY="108.0" text="root" />
+      <TextField fx:id="PasswordFiel" layoutX="226.0" layoutY="155.0" text="1234" />
+      <Label layoutX="152.0" layoutY="112.0" text="Ім'я" />
+      <Label layoutX="139.0" layoutY="159.0" text="Пароль" />
+   </children>
+</AnchorPane>
