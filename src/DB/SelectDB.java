@@ -25,12 +25,7 @@ public class SelectDB {
                             ResultSet.CONCUR_READ_ONLY);
                 
                 ResultSet res = stm.executeQuery("SELECT * FROM football_club.player");
-                  /* System.out.print("\n selSta" + "SELECT * FROM movie where " + select + "End sel\n");
-                 if(select != null&&!select.equals("")){
-                     System.out.print(select);
-                           res  = stm.executeQuery("SELECT * FROM movie where " + select);
-                 }
-               */
+
                  System.out.println("\nSelectPlayer\n" );
                 while (res.next()) {
                      final int id = res.getInt("id");;
@@ -54,7 +49,7 @@ public class SelectDB {
             }
  catch (SQLException ex) {
      
- MyAlert.ShowAlertError("SQLException: " + ex.getMessage()+"SQLState: " + ex.getSQLState()+"VendorError: " + ex.getErrorCode(), null);
+ MyAlert.ShowAlertError("SQLException: " , null);
 
  
  System.out.println("SQLException: " + ex.getMessage());
@@ -71,12 +66,7 @@ public class SelectDB {
                             ResultSet.CONCUR_READ_ONLY);
 
                 ResultSet res = stm.executeQuery("SELECT * FROM football_club.player");
-                  /* System.out.print("\n selSta" + "SELECT * FROM movie where " + select + "End sel\n");
-                 if(select != null&&!select.equals("")){
-                     System.out.print(select);
-                           res  = stm.executeQuery("SELECT * FROM movie where " + select);
-                 }
-               */
+
                  System.out.println("\nSelectPlayer\n" );
                 while (res.next()) {
                      final int id = res.getInt("id");;
@@ -100,7 +90,7 @@ public class SelectDB {
             }
  catch (SQLException ex) {
 
- MyAlert.ShowAlertError("SQLException: " + ex.getMessage()+"SQLState: " + ex.getSQLState()+"VendorError: " + ex.getErrorCode(), null);
+ MyAlert.ShowAlertError("SQLException: ", null);
 
 
  System.out.println("SQLException: " + ex.getMessage());
@@ -142,7 +132,7 @@ public class SelectDB {
         }
         catch (SQLException ex) {
 
-            MyAlert.ShowAlertError("SQLException: " + ex.getMessage()+"SQLState: " + ex.getSQLState()+"VendorError: " + ex.getErrorCode(), null);
+            MyAlert.ShowAlertError("SQLException: " , null);
 
 
             System.out.println("SQLException: " + ex.getMessage());
@@ -183,7 +173,7 @@ public class SelectDB {
         }
         catch (SQLException ex) {
 
-            MyAlert.ShowAlertError("SQLException: " + ex.getMessage()+"SQLState: " + ex.getSQLState()+"VendorError: " + ex.getErrorCode(), null);
+            MyAlert.ShowAlertError("SQLException: " , null);
 
 
             System.out.println("SQLException: " + ex.getMessage());
@@ -271,7 +261,7 @@ public class SelectDB {
         }
         catch (SQLException ex) {
 
-            MyAlert.ShowAlertError("SQLException: " + ex.getMessage()+"SQLState: " + ex.getSQLState()+"VendorError: " + ex.getErrorCode(), null);
+            MyAlert.ShowAlertError("SQLException: " , null);
 
 
             System.out.println("SQLException: " + ex.getMessage());
@@ -279,5 +269,51 @@ public class SelectDB {
             System.out.println("VendorError: " + ex.getErrorCode());
         }
         return gameData;
+    }
+
+    public static ObservableList<Employee> SelectEmployee(ObservableList<Employee> personData) {
+        try {
+            Connection conn = new ConnectionDB().GetConnectDatabase();
+            Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY);
+
+                PreparedStatement pst = conn.prepareStatement("SELECT * FROM football_club.employeeinfo;");
+                            ResultSet res = pst.executeQuery();
+
+
+                while (res.next()) {
+                    final int id = res.getInt("id");;
+                    final String name = res.getString("name");;
+                    final String surname = res.getString("surname");
+                    final String bday = res.getString("Date of signing");
+                    final String nat = res.getString("Nationality");
+                    final String dataSign = res.getString("Date of signing");
+                    final String dataEnd = res.getString("Completion date");
+                    final String post = res.getString("Position");
+                    final int salary = res.getInt("Salary");
+                    final int phone = res.getInt("Phone");
+
+                    personData.add(new Employee(id, name, surname, bday, nat, dataSign,dataEnd, salary,phone, post));
+
+
+
+                }
+
+
+
+
+            conn.close();
+            stm.close();
+        }
+        catch (SQLException ex) {
+
+            MyAlert.ShowAlertError("SQLException: " , null);
+
+
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+        return personData;
     }
 }

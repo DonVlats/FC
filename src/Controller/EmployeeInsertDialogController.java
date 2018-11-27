@@ -10,10 +10,8 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
-public class EmployeeUpdateDialogController {
+public class EmployeeInsertDialogController {
 
-    @FXML
-    public TextField PostField;
     @FXML
     private TextField NameField;
     @FXML
@@ -28,7 +26,8 @@ public class EmployeeUpdateDialogController {
     private TextField EndField;
     @FXML
     private TextField SalaryField;
-
+    @FXML
+    private TextField PostField;
     @FXML
     private TextField BdayField;
 
@@ -104,6 +103,9 @@ public class EmployeeUpdateDialogController {
                 Integer.parseInt(SalaryField.getText());
                 Integer.parseInt(PhoneField.getText());
 
+                //Integer.parseInt(CountryField.getText());
+                // Integer.parseInt(CountryField.getText());
+
 
             } catch (NumberFormatException e) {
                 errorMessage += "ID і year - ЧИСЛАААА!\n";
@@ -114,7 +116,7 @@ public class EmployeeUpdateDialogController {
 
 
         if (errorMessage.length() == 0) {
-            employee = new Employee(this.employee.getId(),
+            employee = new Employee(0,
                     NameField.getText().toString()
                     ,SurnameField.getText().toString() ,
                     BdayField.getText().toString() ,
@@ -125,8 +127,6 @@ public class EmployeeUpdateDialogController {
                     Integer.parseInt(PhoneField.getText()),
                     PostField.getText()
             );
-                    //
-
             return true;
         } else {
             // Show the error message.
@@ -138,27 +138,19 @@ public class EmployeeUpdateDialogController {
     @FXML
     public void AddClicked() throws SQLException {
         // Initialize the person table with the two columns.
-        if(this.isInputValid())
+        if(this.isInputValid()){
 
-            DB.updateDB(employee);
-        dialogStage.close();
+            int count = DB.insertDB(employee);
+            if(count > 0 ){
+                MyAlert.ShowAlertInfo("Кількість рядків які було встановлено " + count , dialogStage);
+            }
 
-    }
+            dialogStage.close();
+        }}
+
+
     @FXML
     public void CencelClicked() {
         dialogStage.close();
-    }
-
-    public void setPerson(Employee player) {
-        this.employee = player;
-        NameField.setText(player.getName());
-        SurnameField.setText(player.getSurname());
-        CountryField.setText(player.getNationality());
-        PhoneField.setText(String.valueOf(player.getPhone()));
-        BdayField.setText(player.getBday());
-        SignField.setText(player.getDataSign());
-        EndField.setText(player.getDataEnd());
-        SalaryField.setText(String.valueOf(player.getSalary()));
-        PostField.setText(String.valueOf(player.getPost()));
     }
 }

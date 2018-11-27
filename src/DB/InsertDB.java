@@ -5,10 +5,7 @@
  */
 package DB;
 
-import POJO.Game;
-import POJO.GameStat;
-import POJO.MyAlert;
-import POJO.Player;
+import POJO.*;
 
 import java.sql.*;
 
@@ -75,9 +72,7 @@ public class InsertDB {
                       idContractData =  Integer.parseInt(resultSet.getString("last_id"));
                   }
 
-                 // if(conn != null){
-                 //     conn.commit();
-                //    }
+
                   sql = ("INSERT INTO `football_club`.`footballer`\n" +
                           "(`Personal_data`,\n" +
                           "`Price`,\n" +
@@ -127,11 +122,11 @@ public class InsertDB {
               else if(ex.getErrorCode() == 1064)
                    MyAlert.ShowAlertError("Дані не вставлено, оскільки вони некоректні\n" + ex.getMessage(), null);
               else
- MyAlert.ShowAlertError("SQLException: " + ex.getMessage()+"SQLState: " + ex.getSQLState()+"VendorError: " + ex.getErrorCode(), null);
+         MyAlert.ShowAlertError("SQLException: ", null);
 
- System.out.println("SQLException: " + ex.getMessage());
- System.out.println("SQLState: " + ex.getSQLState());
- System.out.println("VendorError: " + ex.getErrorCode());
+         System.out.println("SQLException: " + ex.getMessage());
+         System.out.println("SQLState: " + ex.getSQLState());
+         System.out.println("VendorError: " + ex.getErrorCode());
 
 }
 
@@ -174,7 +169,7 @@ public class InsertDB {
             else if(ex.getErrorCode() == 1064)
                 MyAlert.ShowAlertError("Дані не вставлено, оскільки вони некоректні\n" + ex.getMessage(), null);
             else
-                MyAlert.ShowAlertError("SQLException: " + ex.getMessage()+"SQLState: " + ex.getSQLState()+"VendorError: " + ex.getErrorCode(), null);
+                MyAlert.ShowAlertError("SQLException: ", null);
 
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
@@ -238,7 +233,7 @@ public class InsertDB {
             else if(ex.getErrorCode() == 1064)
                 MyAlert.ShowAlertError("Дані не вставлено, оскільки вони некоректні\n" + ex.getMessage(), null);
             else
-                MyAlert.ShowAlertError("SQLException: " + ex.getMessage()+"SQLState: " + ex.getSQLState()+"VendorError: " + ex.getErrorCode(), null);
+                MyAlert.ShowAlertError("SQLException: ", null);
 
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
@@ -313,5 +308,120 @@ public class InsertDB {
 
         return count;
     }
-}
 
+    public static int insertEmployee(Employee employee) throws SQLException {
+
+        int count = 0;
+        try {
+
+            conn = new ConnectionDB().GetConnectDatabase();
+            conn.setAutoCommit(false);
+
+
+            String sql = ("INSERT INTO `football_club`.`personal_data`\n" +
+                    "(`Name`,\n" +
+                    "`Surname`,\n" +
+                    "`Nationality`,\n" +
+                    "`Phone_number`,\n" +
+                    "`Date_of_birth`)\n" +
+                    "VALUES(\n" +
+                    "?,\n" +
+                    "?,\n" +
+                    "?,\n" +
+                    "?,\n" +
+                    "?);\n");
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, employee.getSTName().getValue());
+            pst.setString(2, employee.getSurname());
+            pst.setString(3, employee.getNationality());
+            pst.setInt(4, employee.getPhone());
+            pst.setString(5, employee.getBday());
+            System.out.println(pst.toString());
+            pst.executeUpdate();
+            int idPersonalData = 0;
+            ResultSet resultSet = pst.executeQuery("select last_insert_id() as last_id from football_club.personal_data");
+            if (resultSet.next()) {
+                idPersonalData = Integer.parseInt(resultSet.getString("last_id"));
+            }
+            sql = ("INSERT INTO `football_club`.`contract_data`\n" +
+                    "(`Date_of_signing`,\n" +
+                    "`Completion_date`,\n" +
+                    "`Salary`)\n" +
+                    "VALUES(\n" +
+                    "?,\n" +
+                    "?,\n" +
+                    "?);\n");
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, employee.getDataSign());
+            pst.setString(2, employee.getDataEnd());
+            pst.setInt(3, employee.getSalary());
+
+            System.out.println(pst.toString());
+            pst.executeUpdate();
+
+
+            int idContractData = 0;
+            resultSet = pst.executeQuery("select last_insert_id() as last_id from football_club.contract_data");
+            if (resultSet.next()) {
+                idContractData = Integer.parseInt(resultSet.getString("last_id"));
+            }
+
+
+            sql = ("INSERT INTO `football_club`.`employee`\n" +
+                    "(`Personal_data`,\n" +
+                    "`Position`,\n" +
+                    "`Number_contract`)\n" +
+                    "VALUES(\n" +
+                    "?,\n" +
+                    "?,\n" +
+                    "?);\n");
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1, idPersonalData);
+            pst.setString(2, employee.getPost());
+            pst.setInt(3, idContractData);
+
+            System.out.println(pst.toString());
+            pst.executeUpdate();
+            int Id_subscriber = 0;
+            resultSet = pst.executeQuery("select last_insert_id() as last_id from football_club.personal_data");
+            if (resultSet.next()) {
+                Id_subscriber = Integer.parseInt(resultSet.getString("last_id"));
+            }
+
+            sql = ("UPDATE `football_club`.`contract_data`\n" +
+                    "SET\n" +
+
+                    "`Id_subscriber` = ?\n" +
+                    "WHERE `Number_contract` = ?;");
+            pst = conn.prepareStatement(sql);
+
+            pst.setInt(1, Id_subscriber);
+            pst.setInt(2, idContractData);
+
+            System.out.println(pst.toString());
+            pst.executeUpdate();
+            if (conn != null) {
+                conn.commit();
+                conn.close();
+            }
+
+        } catch (SQLException ex) {
+            if (conn != null)
+                conn.rollback();
+            if (ex.getErrorCode() == 1062) {
+                MyAlert.ShowAlertError("Дані не вставлено, номер " + employee.getPhone() + " - вже існує\n", null);
+            } else if (ex.getErrorCode() == 1064)
+                MyAlert.ShowAlertError("Дані не вставлено, оскільки вони некоректні\n" + ex.getMessage(), null);
+            else
+                MyAlert.ShowAlertError("SQLException: " , null);
+
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+
+        }
+
+
+        return count;
+    }
+}

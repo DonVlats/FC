@@ -6,10 +6,7 @@
 package DB;
 
 
-import POJO.Game;
-import POJO.GameStat;
-import POJO.Player;
-import POJO.User;
+import POJO.*;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
@@ -53,6 +50,12 @@ public static ObservableList<User> readDB(ObservableList<User> personData){
           System.out.println("EndReadDB\n");
 
     return personData;
+}public static ObservableList<Employee> readEmployeeDB(ObservableList<Employee> personData){
+   System.out.println("ReadDB\n");
+      personData = SelectDB.SelectEmployee(personData);
+          System.out.println("EndReadDB\n");
+
+    return personData;
 }
      
     public static Integer deleteDB(int Id) throws SQLException {
@@ -76,6 +79,13 @@ public static Integer deleteDB(String Id) throws SQLException {
 
     return count;
 };
+    public static Integer deleteEmployeeDB(int id) throws SQLException {
+        System.out.println("DeleteDB\n");
+        int count = DeleteDB.deleteEmployee(id);
+        System.out.println("EndDeleteDB\n");
+
+        return count;
+    }
     public static boolean deleteGameStatDB(int id) throws SQLException {
         System.out.println("DeleteDB\n");
         int count = DeleteDB.deleteGameStat(id);
@@ -89,6 +99,12 @@ public static Integer deleteDB(String Id) throws SQLException {
       int count = InsertDB.insert(player);
           System.out.println("EndDeleteDB\n");
    
+    return count;
+};   public static Integer insertDB(Employee employee) throws SQLException {
+   System.out.println("insertDB\n");
+      int count = InsertDB.insertEmployee(employee);
+          System.out.println("EndDeleteDB\n");
+
     return count;
 };   public static Integer insertDB(Game game) throws SQLException {
    System.out.println("insertDB\n");
@@ -128,6 +144,12 @@ public static Integer insertDB(GameStat game) throws SQLException {
       public static Integer updateDB(Game game) throws SQLException {
    System.out.println("insertDB\n");
       int count = UpdateDB.updateGame(game);
+          System.out.println("EndDeleteDB\n");
+
+    return count;
+};      public static Integer updateDB(Employee employee) throws SQLException {
+   System.out.println("insertDB\n");
+      int count = UpdateDB.updateEmployee(employee);
           System.out.println("EndDeleteDB\n");
 
     return count;

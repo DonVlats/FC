@@ -8,10 +8,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import Controller.*;
-import POJO.Game;
-import POJO.GameStat;
-import POJO.MyAlert;
-import POJO.Player;
+import POJO.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -123,6 +120,28 @@ public static void ShowPlayerInfo() throws IOException{
     dialogStage.show();
 
 }
+public static void ShowEmployeeInfo() throws IOException{
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(MainApp.class.getResource("EmployeeShowInfo.fxml"));
+    AnchorPane page = (AnchorPane) loader.load();
+
+
+    Stage dialogStage = new Stage();
+    dialogStage.setTitle("Редагування");
+    dialogStage.initModality(Modality.NONE);
+
+    Scene scene = new Scene(page);
+    dialogStage.setScene(scene);
+
+
+    EmployeeShowInfoController controller = loader.getController();
+    controller.setDialogStage(dialogStage);
+
+
+
+    dialogStage.show();
+
+}
 public static void ShowGameInfo() throws IOException{
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(MainApp.class.getResource("GameShowInfo.fxml"));
@@ -219,6 +238,35 @@ public static boolean showMovieEditDialog(Player person) {
         return false;
     }
 }
+public static boolean showEmployeeInsertDialog(Employee person) {
+    try {
+        // Load the fxml file and create a new stage for the popup dialog.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource("EmployeeInsertDialog.fxml"));
+        AnchorPane page = (AnchorPane) loader.load();
+
+
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Редагування");
+        dialogStage.initModality(Modality.NONE);
+
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+
+
+        EmployeeInsertDialogController controller = loader.getController();
+        controller.setDialogStage(dialogStage);
+        //controller.setPerson(person);
+
+
+        dialogStage.showAndWait();
+
+        return controller.isOkClicked();
+    } catch (IOException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
 public static boolean showGameStatInsertDialog(Game game ) {
     try {
         // Load the fxml file and create a new stage for the popup dialog.
@@ -301,6 +349,35 @@ public static boolean showMovieUpdateDialog(Player person) {
         PlayerUpdateDialogController controller = loader.getController();
         controller.setDialogStage(dialogStage);
         controller.setPerson(person);
+
+
+        dialogStage.showAndWait();
+
+        return controller.isOkClicked();
+    } catch (IOException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+public static boolean showEmployeeUpdateDialog(Employee person) {
+    try {
+        // Load the fxml file and create a new stage for the popup dialog.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource("EmployeeUpdateDialog.fxml"));
+        AnchorPane page = (AnchorPane) loader.load();
+
+
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Редагування");
+        dialogStage.initModality(Modality.NONE);
+
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+
+
+        EmployeeUpdateDialogController controller = loader.getController();
+        controller.setDialogStage(dialogStage);
+       controller.setPerson(person);
 
 
         dialogStage.showAndWait();

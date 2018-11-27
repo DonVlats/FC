@@ -19,7 +19,7 @@ import java.sql.SQLException;
  * @author 123
  */
 public  class ConnectionDB {
-    Connection  conn;
+    private Connection  conn;
    
    static String username = "root";
 static String password = "1234";
@@ -31,14 +31,7 @@ public void SetUser(String userName, String passwordUser){
          
         String url =("jdbc:mysql://localhost/football_club?verifyServerCertificate=false&useSSL=false&requireSSL=false" +
                 "&useLegacyDatetimeCode=false&amp&serverTimezone=UTC&allowPublicKeyRetrieval=true");
-       // try {
-      //      Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-      //  } catch (ClassNotFoundException e) {
-         //   System.out.println("Driver not found.");
-        //    System.exit(-1);
 
-       // }
-        
         try{
         conn = DriverManager.getConnection(url,username,password );
         } catch (SQLException ex) {

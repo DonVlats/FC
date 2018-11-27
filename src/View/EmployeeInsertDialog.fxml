@@ -8,9 +8,8 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Controller.EmployeeUpdateDialogController"
+            fx:controller="Controller.EmployeeInsertDialogController"
             prefHeight="400.0" prefWidth="600.0">
-
     <children>
         <GridPane layoutX="6.0" layoutY="8.0" prefHeight="293.0" prefWidth="592.0">
             <columnConstraints>
@@ -41,7 +40,7 @@
                 <Label text="Дата підрисання" GridPane.rowIndex="4" />
                 <Label text="Дата завершення " GridPane.rowIndex="5" />
                 <Label text="Зарплата" GridPane.rowIndex="7" />
-                <Label text="Посада" GridPane.rowIndex="8" />
+                <Label text="Ціна" GridPane.rowIndex="8" />
                 <Label GridPane.rowIndex="9" />
                 <TextField fx:id="SignField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                 <TextField fx:id="PhoneField" GridPane.columnIndex="1" GridPane.rowIndex="6" />

@@ -27,7 +27,7 @@ public class ChoseActionController {
     public void EmployeeShow() throws IOException {
         Stage stage =  (Stage) btn.getScene().getWindow();
         stage.close();
-        MainApp.ShowPlayerInfo();
+        MainApp.ShowEmployeeInfo();
     }
     public void GameShow() throws IOException {
         Stage stage =  (Stage) btn.getScene().getWindow();
