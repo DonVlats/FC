@@ -118,6 +118,7 @@ public void setStage(Stage stage) {
     }
 @FXML
 private void handleEditPerson() {
+
     Player selectedPerson = PlayerTable.getSelectionModel().getSelectedItem();
     if (selectedPerson != null) {
         boolean okClicked = MainApp.showMovieUpdateDialog(selectedPerson);

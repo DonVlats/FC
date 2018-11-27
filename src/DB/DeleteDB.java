@@ -102,4 +102,72 @@ public class DeleteDB {
 
         return count;
     }
+
+    public static int deleteGame(int id) throws SQLException {
+        int count = 0;
+        try {
+
+            conn = new ConnectionDB().GetConnectDatabase();
+
+            conn.setAutoCommit(false);
+            PreparedStatement pst = conn.prepareStatement("DELETE FROM `football_club`.`game` WHERE id =  ?;");
+            pst.setInt(1,id);
+
+            count = pst.executeUpdate();
+            pst.execute("FLUSH PRIVILEGES");
+            if(conn != null){
+                conn.commit();
+                conn.close();
+                pst.close();
+            }
+        }
+
+
+        catch (SQLException ex) {
+
+
+            conn.rollback();
+            MyAlert.ShowAlertError("SQLException: " + ex.getMessage()+"SQLState: " + ex.getSQLState()+"VendorError: " + ex.getErrorCode(), null);
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+
+
+        return count;
+    }
+
+    public static int deleteGameStat(int id) throws SQLException {
+        int count = 0;
+        try {
+
+            conn = new ConnectionDB().GetConnectDatabase();
+
+            conn.setAutoCommit(false);
+            PreparedStatement pst = conn.prepareStatement("DELETE FROM `football_club`.`game stat` WHERE id =  ?;");
+            pst.setInt(1,id);
+
+            count = pst.executeUpdate();
+            pst.execute("FLUSH PRIVILEGES");
+            if(conn != null){
+                conn.commit();
+                conn.close();
+                pst.close();
+            }
+        }
+
+
+        catch (SQLException ex) {
+
+
+            conn.rollback();
+            MyAlert.ShowAlertError("SQLException: " + ex.getMessage()+"SQLState: " + ex.getSQLState()+"VendorError: " + ex.getErrorCode(), null);
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+
+
+        return count;
+    }
 }

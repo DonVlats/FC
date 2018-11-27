@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import Controller.*;
+import POJO.Game;
+import POJO.GameStat;
+import POJO.MyAlert;
 import POJO.Player;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +25,37 @@ public class MainApp extends Application {
     private Stage primaryStage;
 
   static String select;
+
+            public static boolean showGameStatUpdateDialog(Game game, GameStat selectedPerson) throws IOException {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(MainApp.class.getResource("GameStatUpdateDialog.fxml"));
+                AnchorPane page = (AnchorPane) loader.load();
+
+
+                Stage dialogStage = new Stage();
+                dialogStage.setTitle("Редагування");
+                dialogStage.initModality(Modality.NONE);
+
+                Scene scene = new Scene(page);
+                dialogStage.setScene(scene);
+
+
+                GameStatUpdateDialogController controller = loader.getController();
+                controller.setDialogStage(dialogStage);
+
+
+                controller.setPerson(selectedPerson);
+                controller.initialize(game);
+                if(game == null)
+                    MyAlert.ShowAlertError("Виберіть матч",null);
+                else
+                    dialogStage.showAndWait();
+
+                return controller.isOkClicked();
+
+
+
+    }
 
     public String getSelect() {
         return select;
@@ -89,6 +123,51 @@ public static void ShowPlayerInfo() throws IOException{
     dialogStage.show();
 
 }
+public static void ShowGameInfo() throws IOException{
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(MainApp.class.getResource("GameShowInfo.fxml"));
+    AnchorPane page = (AnchorPane) loader.load();
+
+
+    Stage dialogStage = new Stage();
+    dialogStage.setTitle("Редагування");
+    dialogStage.initModality(Modality.NONE);
+
+    Scene scene = new Scene(page);
+    dialogStage.setScene(scene);
+
+
+    GameShowInfoController controller = loader.getController();
+    controller.setDialogStage(dialogStage);
+
+
+
+    dialogStage.show();
+
+}
+public static void ShowGameStatInfo(Game game, int id) throws IOException{
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(MainApp.class.getResource("GameStatShow.fxml"));
+    AnchorPane page = (AnchorPane) loader.load();
+
+
+    Stage dialogStage = new Stage();
+    dialogStage.setTitle("Редагування");
+    dialogStage.initModality(Modality.NONE);
+
+    Scene scene = new Scene(page);
+    dialogStage.setScene(scene);
+
+
+    GameStatShowController controller = loader.getController();
+    controller.initializeStat(id);
+    controller.setGame(game);
+    controller.setDialogStage(dialogStage);
+
+
+    dialogStage.show();
+
+}
     public static void ShowChoseAction() throws IOException{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource("ChoseAction.fxml"));
@@ -132,6 +211,38 @@ public static boolean showMovieEditDialog(Player person) {
         //controller.setPerson(person);
 
     
+        dialogStage.showAndWait();
+
+        return controller.isOkClicked();
+    } catch (IOException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+public static boolean showGameStatInsertDialog(Game game ) {
+    try {
+        // Load the fxml file and create a new stage for the popup dialog.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource("GameStatInsertDialog.fxml"));
+        AnchorPane page = (AnchorPane) loader.load();
+
+
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Редагування");
+        dialogStage.initModality(Modality.NONE);
+
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+
+
+        GameStatInsertDialogController controller = loader.getController();
+        controller.setDialogStage(dialogStage);
+        controller.initialize(game);
+        //controller.setPerson(person);
+
+        if(game == null)
+            MyAlert.ShowAlertError("Виберіть матч",null);
+        else
         dialogStage.showAndWait();
 
         return controller.isOkClicked();
@@ -200,6 +311,65 @@ public static boolean showMovieUpdateDialog(Player person) {
         return false;
     }
 }
+public static boolean showGameInsertDialog( ) {
+    try {
+        // Load the fxml file and create a new stage for the popup dialog.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource("GameInsertDialog.fxml"));
+        AnchorPane page = (AnchorPane) loader.load();
+
+
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Редагування");
+        dialogStage.initModality(Modality.NONE);
+
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+
+
+        GameInsertDialogController controller = loader.getController();
+        controller.setDialogStage(dialogStage);
+
+
+
+        dialogStage.showAndWait();
+
+        return controller.isOkClicked();
+    } catch (IOException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+
+    public static boolean showGameUpdatedDialog(Game game) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("GameUpdateDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Редагування");
+            dialogStage.initModality(Modality.NONE);
+
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+
+            GameUpdateDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setPerson(game);
+
+
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     public  boolean showAuth( ) {
         try{
             FXMLLoader loader = new FXMLLoader();

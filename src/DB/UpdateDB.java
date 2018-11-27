@@ -5,6 +5,8 @@
  */
 package DB;
 
+import POJO.Game;
+import POJO.GameStat;
 import POJO.MyAlert;
 import POJO.Player;
 
@@ -165,6 +167,120 @@ public class UpdateDB {
 
 
              if(ex.getErrorCode() == 1064)
+                MyAlert.ShowAlertError("Дані не вставлено, оскільки вони некоректні\n" + ex.getMessage(), null);
+            else
+                MyAlert.ShowAlertError("SQLException: " + ex.getMessage()+"SQLState: " + ex.getSQLState()+"VendorError: " + ex.getErrorCode(), null);
+
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+
+        }finally {
+            if(conn != null){
+
+                conn.close();}
+
+        }
+
+
+        return count;
+    }
+
+    public static int updateGame(Game game) throws SQLException {
+        int count = 0;
+        try {
+
+            conn = new ConnectionDB().GetConnectDatabase();
+
+            String sql = ("UPDATE `football_club`.`game`\n" +
+                    "SET\n" +
+                    "`Opponent` = ?,\n" +
+                    "`Competition` = ?,\n" +
+                    "`Data` = ?,\n" +
+                    "`Score` = ?,\n" +
+                    "`Score_opponent` = ?,\n" +
+                    "`Home` = ?\n" +
+                    "WHERE `id` = ?;\n" ) ;
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, game.getOpponent());
+            pst.setString(2, game.getCompetition());
+            pst.setString(3, game.getData());
+            pst.setInt(4,game.getScore());
+            pst.setInt(5,game.getScoreOpponent());
+            pst.setInt(6,game.getHome());
+            pst.setInt(7,game.getId());
+            System.out.println(pst.toString());
+            pst.executeUpdate();
+
+
+
+
+            if(conn != null)
+                conn.close();
+            pst.close();
+        }
+
+        catch (SQLException ex) {
+
+
+            if(ex.getErrorCode() == 1064)
+                MyAlert.ShowAlertError("Дані не вставлено, оскільки вони некоректні\n" + ex.getMessage(), null);
+            else
+                MyAlert.ShowAlertError("SQLException: " + ex.getMessage()+"SQLState: " + ex.getSQLState()+"VendorError: " + ex.getErrorCode(), null);
+
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+
+        }finally {
+            if(conn != null){
+
+                conn.close();}
+
+        }
+
+
+        return count;
+    }
+
+    public static int updateGameStat(GameStat gameStat) throws SQLException {
+        int count = 0;
+        try {
+
+            conn = new ConnectionDB().GetConnectDatabase();
+
+            String sql = ("UPDATE `football_club`.`game stat`\n" +
+                    "SET\n" +
+                    "`idGame` = ? ,\n" +
+                    "`idPlayer` = ? ,\n" +
+                    "`Starting` =? ,\n" +
+                    "`Substitutes` =? ,\n" +
+                    "`Goal` =? ,\n" +
+                    "`Assist` = ? \n" +
+                    "WHERE `id` = ? ;" ) ;
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setInt(1, Integer.parseInt(gameStat.getOpponent()));
+            pst.setInt(2, Integer.parseInt(gameStat.getName()));
+            pst.setInt(3, gameStat.getStart());
+            pst.setInt(4, gameStat.getSubstitutes());
+            pst.setInt(5, gameStat.getGoal());
+            pst.setInt(6, gameStat.getAssist());
+            pst.setInt(7,gameStat.getId());
+            System.out.println(pst.toString());
+            pst.executeUpdate();
+
+
+
+
+            if(conn != null)
+                conn.close();
+            pst.close();
+        }
+
+        catch (SQLException ex) {
+
+
+            if(ex.getErrorCode() == 1064)
                 MyAlert.ShowAlertError("Дані не вставлено, оскільки вони некоректні\n" + ex.getMessage(), null);
             else
                 MyAlert.ShowAlertError("SQLException: " + ex.getMessage()+"SQLState: " + ex.getSQLState()+"VendorError: " + ex.getErrorCode(), null);

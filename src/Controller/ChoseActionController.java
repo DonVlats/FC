@@ -32,13 +32,14 @@ public class ChoseActionController {
     public void GameShow() throws IOException {
         Stage stage =  (Stage) btn.getScene().getWindow();
         stage.close();
-        MainApp.ShowPlayerInfo();
+        MainApp.ShowGameInfo();
     }
     public void AuthShow() throws IOException {
         Stage stage =  (Stage) btn.getScene().getWindow();
         stage.close();
         MainApp.showAuthAgain();
     }
+
     public void setDialogStage(Stage dialogStage) {
 
     }
