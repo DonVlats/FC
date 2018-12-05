@@ -3,13 +3,10 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ChoseActionController">
-   <children>
-      <Button fx:id="btn" layoutX="14.0" layoutY="28.0" mnemonicParsing="false" onAction="#PlayerShow" text="Список Гравців" />
-      <Button layoutX="103.0" layoutY="60.0" mnemonicParsing="false" onAction="#EmployeeShow" text="Список Робітників" />
-      <Button layoutX="194.0" layoutY="93.0" mnemonicParsing="false" onAction="#GameShow" text="Список Матчів" />
-      <Button layoutX="286.0" layoutY="135.0" mnemonicParsing="false" text="Button" />
-      <Button layoutX="260.0" layoutY="346.0" mnemonicParsing="false" onAction="#AuthShow" text="Вихід" />
-      <Button layoutX="479.0" layoutY="218.0" mnemonicParsing="false" onAction="#EditUsers" text="Користувачі" />
-   </children>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../Login.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ChoseActionController">
+    <Button fx:id="btn" layoutX="4.0" layoutY="28.0" mnemonicParsing="false" onAction="#PlayerShow" prefHeight="33.0" prefWidth="172.0" text="Список Гравців" />
+    <Button layoutX="4.0" layoutY="154.0" mnemonicParsing="false" onAction="#EmployeeShow" text="Список Робітників" />
+    <Button layoutX="432.0" layoutY="154.0" mnemonicParsing="false" onAction="#GameShow" prefHeight="33.0" prefWidth="172.0" text="Список Матчів" />
+    <Button layoutX="260.0" layoutY="346.0" mnemonicParsing="false" onAction="#AuthShow" text="Вихід" />
+    <Button fx:id="userBTN" layoutX="432.0" layoutY="28.0" mnemonicParsing="false" onAction="#EditUsers" prefHeight="33.0" prefWidth="172.0" text="Користувачі" />
 </AnchorPane>

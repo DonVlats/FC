@@ -1,30 +1,23 @@
 package Controller;
 
 import DB.DB;
-import DB.ConnectionDB;
 import POJO.Employee;
 import POJO.MyAlert;
+import POJO.Player;
 import View.MainApp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
-public class EmployeeShowInfoController {
-    private Stage stage;
+public class EmployeeInfoForAccountantController {   private Stage stage;
     private final ObservableList<Employee> personData = FXCollections.observableArrayList();
-    @FXML
-    private Button deleteBTN;
-    @FXML
-    private Button insertBTN;
-    @FXML
-    private Button updateBTN;
     @FXML
     private TableView<Employee> PlayerTable;
     @FXML
@@ -44,7 +37,12 @@ public class EmployeeShowInfoController {
     private TableColumn<Employee, Integer> SalaryColumn;
     @FXML
     private TableColumn<Employee, String> PostColumn;
-
+    @FXML
+    private Label SalaryPlayer;
+  @FXML
+    private Label SalaryEmp;
+  @FXML
+    private Label SalaryAll;
 
     @FXML
     public void initialize() {
@@ -61,57 +59,28 @@ public class EmployeeShowInfoController {
         PostColumn.setCellValueFactory(cellData -> cellData.getValue().getSTPost());
         PlayerTable.setItems(personData);
 
-        String role = DB.readDB(new ConnectionDB().getUsername());
-        if(!"Адмін".equals(role)){
-            deleteBTN.setVisible(false);
-            insertBTN.setVisible(false);
-            updateBTN.setVisible(false);
+        setSalaryValue();
+    }
+
+    private void setSalaryValue() {
+        int salPl = 0 ;
+        int salEm = 0 ;
+        for (Employee emp: personData){
+            if (emp.getPost() .equals( "Футболіст"))
+                salPl +=emp.getSalary();
+            else
+                salEm += emp.getSalary();
         }
+        SalaryPlayer.setText(String.valueOf(salPl));
+        SalaryEmp.setText(String.valueOf(salEm));
+        SalaryAll.setText(String.valueOf(salPl + salEm));
     }
 
     private void init() {
-        DB.readEmployeeDB(personData);
-    }
-
-    @FXML
-    private void handleDeletePerson() throws SQLException {
-        int selectedIndex = PlayerTable.getSelectionModel().getSelectedIndex();
-        if (selectedIndex >= 0) {
-
-
-            if( DB.deleteEmployeeDB(      (PlayerTable.getSelectionModel().getSelectedItem().getId()))
-                    > 0){
-                MyAlert.ShowAlertInfo("Видалено");
-            }
-            PlayerTable.getItems().remove(selectedIndex);
-        } else {
-            MyAlert.ShowAlertError("Виберить запис для видалення", stage);
-
-        }
-
-
-    }
-
-    @FXML
-    private void handleNewMovie() {
-        Employee tempPerson = new Employee();
-        boolean okClicked = MainApp.showEmployeeInsertDialog();
-
+        DB.readEmployeeForAccountantDB(personData);
     }
 
 
-    @FXML
-    private void handleEditPerson() {
-
-        Employee selectedPerson = PlayerTable.getSelectionModel().getSelectedItem();
-        if (selectedPerson != null) {
-            boolean okClicked = MainApp.showEmployeeUpdateDialog(selectedPerson);
-
-
-        } else {
-            MyAlert.ShowAlertError("Виберить запис для редагування", stage);
-        }
-    }
 
     public void setDialogStage(Stage dialogStage) {
         this.stage = dialogStage;
@@ -119,7 +88,13 @@ public class EmployeeShowInfoController {
     @FXML
     private void ShowChoseAction() throws IOException {
         stage.close();
-        MainApp.ShowChoseAction();
+        MainApp.ShowChoseActionForAccountant();
 
     }
+    public void AuthShow() {
+        Stage stage =  (Stage) PlayerTable.getScene().getWindow();
+        stage.close();
+        MainApp.showAuthAgain();
+    }
+
 }

@@ -3,23 +3,31 @@ package Controller;
 
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import DB.DB;
+import DB.ConnectionDB;
 import POJO.MyAlert;
 import POJO.Player;
 import View.MainApp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 public class PlayerOverviewController {
      private Stage stage;
-    private  ObservableList<Player> personData = FXCollections.observableArrayList();
+    private final ObservableList<Player> personData = FXCollections.observableArrayList();
+    @FXML
+    private Button deleteBTN;
+    @FXML
+    private Button insertBTN;
+    @FXML
+    private Button updateBTN;
     @FXML
     private TableView<Player> PlayerTable;
     @FXML
@@ -39,11 +47,10 @@ public class PlayerOverviewController {
     private TableColumn<Player, Integer> SalaryColumn;
     @FXML
     private TableColumn<Player, Integer> PriceColumn;
-    Connection conn ;
 
 
     @FXML
-    public void initialize() {
+    public void initialize() throws SQLException {
            System.out.print("setMainApp - 1 \n");
         PlayerTable.getItems().clear();
         init();              
@@ -56,22 +63,37 @@ public class PlayerOverviewController {
         SalaryColumn.setCellValueFactory(cellData -> cellData.getValue().getSTSalary().asObject());
         PriceColumn.setCellValueFactory(cellData -> cellData.getValue().getSTPrice().asObject());
         PlayerTable.setItems(personData);
-        FilterDialogController.selectMessage = "";
-    
-              }
-   
-    public void setMainApp(ObservableList<Player> mainApp) {
-        
-        System.out.print("setMainApp - 1 \n");
-        PlayerTable.setItems(mainApp);
-    }
-    public ObservableList<Player> getPersonData() {
-return personData;
-}
 
-    public void init() {        
-          personData = DB.readDB(    personData,FilterDialogController.selectMessage);
-              }
+        PlayerTable.setRowFactory(tv -> {
+            TableRow<Player> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Player rowData = row.getItem();
+                    System.out.println("Double click on: "+rowData.getId());
+                    try {
+                        if(rowData.getId()>0)
+                            MainApp.ShowGameStatInfo(rowData.getId());
+                        else
+                            MainApp.ShowGameStatInfo(0);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return row; });
+
+
+            String role = DB.readDB(new ConnectionDB().getUsername());
+            if(!"Адмін".equals(role)){
+                deleteBTN.setVisible(false);
+                insertBTN.setVisible(false);
+                updateBTN.setVisible(false);
+            }}
+
+
+    private void init() {
+        DB.readOBlistDB(personData);
+    }
     
         @FXML
 private void handleDeletePerson() throws SQLException {
@@ -81,7 +103,7 @@ private void handleDeletePerson() throws SQLException {
   
    if( DB.deleteDB(      (PlayerTable.getSelectionModel().getSelectedItem().getId()))
            > 0){
-       MyAlert.ShowAlertInfo("Видалено", stage);
+       MyAlert.ShowAlertInfo("Видалено");
    }
         PlayerTable.getItems().remove(selectedIndex);
     } else {
@@ -95,36 +117,18 @@ private void handleDeletePerson() throws SQLException {
 @FXML
 private void handleNewMovie() {
     Player tempPerson = new Player();
-    boolean okClicked = MainApp.showMovieEditDialog(tempPerson);
-    if (okClicked) {
-        ;
-    }
-}
-@FXML
-private void Filter() {
-  
- MainApp.showFilterDialog();
-  
-}
-private void showPersonDetails(Player player) {
-    if (player != null) {
-           } else {
-                ;
-    }
+    boolean okClicked = MainApp.showPlayerInsertDialog();
+
 }
 
-public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-@FXML
+
+    @FXML
 private void handleEditPerson() {
 
     Player selectedPerson = PlayerTable.getSelectionModel().getSelectedItem();
     if (selectedPerson != null) {
-        boolean okClicked = MainApp.showMovieUpdateDialog(selectedPerson);
-        if (okClicked) {
-            showPersonDetails(selectedPerson);
-        }
+        boolean okClicked = MainApp.showPlayerUpdateDialog(selectedPerson);
+
 
     } else {
               MyAlert.ShowAlertError("Виберить запис для редагування", stage);

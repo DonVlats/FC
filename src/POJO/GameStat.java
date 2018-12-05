@@ -6,79 +6,46 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class GameStat {
-    private int id;
-    private String name;
-    private String surname;
-    private int start;
-    private int substitutes;
-    private int goal;
-    private int assist;
-    private String opponent;
+    private final int id;
+    private final String name;
+    private final String surname;
+    private final int start;
+    private final int substitutes;
+    private final int goal;
+    private final int assist;
+    private final String opponent;
     public int getId() {
+
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
     public int getStart() {
         return start;
-    }
-
-    public void setStart(int start) {
-        this.start = start;
     }
 
     public int getSubstitutes() {
         return substitutes;
     }
 
-    public void setSubstitutes(int substitutes) {
-        this.substitutes = substitutes;
-    }
-
     public int getGoal() {
         return goal;
-    }
-
-    public void setGoal(int goal) {
-        this.goal = goal;
     }
 
     public int getAssist() {
         return assist;
     }
 
-    public void setAssist(int assist) {
-        this.assist = assist;
-    }
-
-    public GameStat() {
-    }
-
     public String getOpponent() {
         return opponent;
-    }
-
-    public void setOpponent(String opponent) {
-        this.opponent = opponent;
     }
 
     public GameStat(int id, String name, String surname, int start, int substitutes, int goal, int assist, String opponent) {
@@ -98,6 +65,9 @@ public class GameStat {
 
     public StringProperty getSTsurname() {
         return new SimpleStringProperty(surname);
+    }
+    public StringProperty getSTOpponent() {
+        return new SimpleStringProperty(opponent);
     }
 
 

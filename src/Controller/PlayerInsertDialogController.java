@@ -45,8 +45,6 @@ public class PlayerInsertDialogController {
 
     private Stage dialogStage;
     private Player player;
-    private boolean okClicked = false;
-    private boolean isUpdate = false;
 
 
     /**
@@ -58,12 +56,7 @@ public class PlayerInsertDialogController {
         this.dialogStage = dialogStage;
     }
 
-    /**
-     * Sets the person to be edited in the dialog.
-     *
-     * @param player
-     */
-   /* public void setPerson(Player player) {
+    /* public void setPerson(Player player) {
         this.player = player;
         if(player.getBday() != 0)
         isUpdate = true;
@@ -80,7 +73,7 @@ public class PlayerInsertDialogController {
      * @return
      */
     public boolean isOkClicked() {
-        return okClicked;
+        return false;
     }
 
 
@@ -126,13 +119,13 @@ public class PlayerInsertDialogController {
 
         if (errorMessage.length() == 0) {
             player = new Player(0,
-                    NameField.getText().toString()
-                    ,SurnameField.getText().toString() ,
-                    CountryField.getText().toString() ,
+                    NameField.getText()
+                    , SurnameField.getText(),
+                    CountryField.getText(),
                     Integer.parseInt(PhoneField.getText()) ,
-                    BdayField.getText().toString(),
-                    SignField.getText().toString(),
-                    EndField.getText().toString(),
+                    BdayField.getText(),
+                    SignField.getText(),
+                    EndField.getText(),
                     Integer.parseInt(SalaryField.getText()),
                     Integer.parseInt(PriceField.getText())
                     //
@@ -150,10 +143,9 @@ public class PlayerInsertDialogController {
         // Initialize the person table with the two columns.
          if(this.isInputValid()){
         
-            int count = DB.insertDB(player);
-            if(count > 0 ){
-                MyAlert.ShowAlertInfo("Кількість рядків які було встановлено " + count , dialogStage);
-            }
+            if( DB.insertDB(player) > 0)
+                MyAlert.ShowAlertInfo("Дані успішно додано");
+
            
                      dialogStage.close();
         }}

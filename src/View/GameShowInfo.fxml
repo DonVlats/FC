@@ -6,28 +6,23 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.GameShowInfoController">
-    <children>
-        <Button id="showTable" layoutX="372.0" layoutY="418.0" mnemonicParsing="false" onAction="#initialize" text="Вивід" />
-        <ScrollPane prefHeight="347.0" prefWidth="781.0">
-            <content>
-                <TableView id="tableView" fx:id="gameTable" prefHeight="340.0" prefWidth="779.0">
-                    <columns>
-                        <TableColumn id="colID" fx:id="opponentColumn" maxWidth="114.00001525878906" minWidth="76.00001525878906" prefWidth="76.00001525878906" text="Суперник" />
-                        <TableColumn id="colTitle" fx:id="competitionColumn" prefWidth="167.0" text="Змагання" />
-                        <TableColumn id="colYear" fx:id="dataColumn" prefWidth="120.0" text="Дата" />
-                        <TableColumn id="colDirector" fx:id="scoreColumn" prefWidth="59.0" text="Рахунок" />
-                        <TableColumn id="colDirector" fx:id="scoreOpponentColumn" prefWidth="124.0" text="Рахунок суперника" />
-                        <TableColumn id="colDirector" fx:id="homeColumn" prefWidth="111.0" text="Вдома" />
-                    </columns>
-                </TableView>
-            </content>
-        </ScrollPane>
-        <Button layoutX="25.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleDeletePerson" text="Видалення" />
-        <Button layoutX="691.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleEditPerson" text="Оновлення" />
-        <Button layoutX="573.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleNewMovie" text="Вставка" />
-        <Button layoutX="184.0" layoutY="418.0" mnemonicParsing="false" onAction="#Filter" text="ФІльтр" />
-        <Button layoutX="369.0" layoutY="457.0" mnemonicParsing="false" onAction="#ShowChoseAction" text="Меню" />
-      <Button layoutX="270.0" layoutY="418.0" mnemonicParsing="false" onAction="#ShowStat" text="Статистика" />
-    </children>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../Login.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.GameShowInfoController">
+    <Button id="showTable" layoutX="330.0" layoutY="396.0" mnemonicParsing="false" onAction="#initialize" prefHeight="33.0" prefWidth="122.0" text="Вивід" />
+    <ScrollPane prefHeight="347.0" prefWidth="781.0">
+        <TableView id="tableView" fx:id="gameTable" prefHeight="340.0" prefWidth="779.0">
+            <columns>
+                <TableColumn id="colID" fx:id="opponentColumn" maxWidth="114.00001525878906" minWidth="76.00001525878906" prefWidth="76.00001525878906" text="Суперник" />
+                <TableColumn id="colTitle" fx:id="competitionColumn" prefWidth="167.0" text="Змагання" />
+                <TableColumn id="colYear" fx:id="dataColumn" prefWidth="120.0" text="Дата" />
+                <TableColumn id="colDirector" fx:id="scoreColumn" prefWidth="59.0" text="Рахунок" />
+                <TableColumn id="colDirector" fx:id="scoreOpponentColumn" prefWidth="124.0" text="Рахунок суперника" />
+                <TableColumn id="colDirector" fx:id="homeColumn" prefWidth="111.0" text="Вдома" />
+            </columns>
+        </TableView>
+    </ScrollPane>
+    <Button fx:id="deleteBTN" layoutX="23.0" layoutY="396.0" mnemonicParsing="false" onAction="#handleDeletePerson" prefHeight="33.0" prefWidth="122.0" text="Видалення" />
+    <Button fx:id="updateBTN" layoutX="643.0" layoutY="396.0" mnemonicParsing="false" onAction="#handleEditPerson" text="Оновлення" />
+    <Button fx:id="insertBTN" layoutX="490.0" layoutY="396.0" mnemonicParsing="false" onAction="#handleNewMovie" prefHeight="33.0" prefWidth="122.0" text="Вставка" />
+    <Button layoutX="346.0" layoutY="460.0" mnemonicParsing="false" onAction="#ShowChoseAction" text="Меню" />
+    <Button layoutX="177.0" layoutY="396.0" mnemonicParsing="false" onAction="#ShowStat" text="Статистика" />
 </AnchorPane>

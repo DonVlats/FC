@@ -6,8 +6,8 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../Login.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.GameStatShowController">
-    <Button id="showTable" layoutX="188.0" layoutY="402.0" mnemonicParsing="false" onAction="#ShowStat" prefHeight="33.0" prefWidth="124.0" text="Вивід" />
+<AnchorPane prefHeight="440.0" prefWidth="781.0" stylesheets="@../Login.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.PlayerStatInfoShowController">
+    <Button id="showTable" layoutX="348.0" layoutY="393.0" mnemonicParsing="false" onAction="#ShowStat" prefHeight="30.0" prefWidth="85.0" text="Вивід" />
     <ScrollPane prefHeight="347.0" prefWidth="781.0">
         <TableView id="tableView" fx:id="gameStatTable" prefHeight="340.0" prefWidth="779.0">
             <columns>
@@ -17,11 +17,9 @@
                 <TableColumn id="colDirector" fx:id="substitutesColumn" prefWidth="59.0" text="Заміна" />
                 <TableColumn id="colDirector" fx:id="goalColumn" prefWidth="124.0" text="К-сть голів" />
                 <TableColumn id="colDirector" fx:id="assistColumn" prefWidth="111.0" text="К-сть асистів" />
+                <TableColumn id="colDirector" fx:id="opponentColumn" prefWidth="111.0" text="Суперник" />
             </columns>
         </TableView>
     </ScrollPane>
-    <Button layoutX="24.0" layoutY="402.0" mnemonicParsing="false" onAction="#handleDeletePerson" prefHeight="33.0" prefWidth="124.0" text="Видалення" />
-    <Button layoutX="634.0" layoutY="402.0" mnemonicParsing="false" onAction="#handleEditPerson" text="Оновлення" />
-    <Button layoutX="472.0" layoutY="402.0" mnemonicParsing="false" onAction="#handleNewMovie" prefHeight="33.0" prefWidth="124.0" text="Вставка" />
-    <Button layoutX="347.0" layoutY="460.0" mnemonicParsing="false" onAction="#ShowChoseAction" text="Назад" />
+
 </AnchorPane>

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../Login.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.GameStatInsertDialogController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../Login.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.GameUpdateDialogController">
     <GridPane layoutX="6.0" layoutY="8.0" prefHeight="293.0" prefWidth="592.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -24,20 +24,20 @@
             <RowConstraints maxHeight="252.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="252.0" vgrow="SOMETIMES" />
         </rowConstraints>
-        <Label text="Старт" GridPane.rowIndex="2" />
-        <Label text="Гравець" />
-        <Label text="Гра" GridPane.rowIndex="1" />
-        <Label text="Заміна" GridPane.rowIndex="3" />
-        <TextField fx:id="gameTF" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <Label text="К-сть голів" GridPane.rowIndex="4" />
-        <Label text="К-сть асистів" GridPane.rowIndex="5" />
+        <Label text="Дата" GridPane.rowIndex="2" />
+        <Label text="Суперник" />
+        <Label text="Змагання" GridPane.rowIndex="1" />
+        <Label text="Кількість голів" GridPane.rowIndex="3" />
+        <TextField fx:id="opponentTF" GridPane.columnIndex="1" />
+        <TextField fx:id="competitionTF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <TextField fx:id="dataTF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <TextField fx:id="scoreTF" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label text="Кількість голів суперника" GridPane.rowIndex="4" />
+        <Label text="Вдома" GridPane.rowIndex="5" />
         <Label GridPane.rowIndex="6" />
-        <TextField fx:id="goalTF" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-        <ChoiceBox fx:id="startCB" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <ChoiceBox fx:id="subCB" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <TextField fx:id="assistTF" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-        <ChoiceBox fx:id="playerCB" prefWidth="150.0" GridPane.columnIndex="1" />
+        <TextField fx:id="scoreOpponentTF" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <ChoiceBox fx:id="homeTF" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
     </GridPane>
-    <Button cancelButton="true" layoutX="173.0" layoutY="331.0" mnemonicParsing="false" onAction="#AddClicked" text="Прийняти" />
+    <Button cancelButton="true" layoutX="177.0" layoutY="331.0" mnemonicParsing="false" onAction="#AddClicked" text="Прийняти" />
     <Button defaultButton="true" layoutX="300.0" layoutY="331.0" mnemonicParsing="false" onAction="#CencelClicked" prefHeight="33.0" prefWidth="115.0" text="Вийти" />
 </AnchorPane>

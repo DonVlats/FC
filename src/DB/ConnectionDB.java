@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Objects;
 
 
 /**
@@ -21,8 +22,11 @@ import java.sql.SQLException;
 public  class ConnectionDB {
     private Connection  conn;
    
-   static String username = "root";
-static String password = "1234";
+   private static String username = "root";
+private static String password = "1234";
+public String getUsername(){
+    return username;
+}
 public void SetUser(String userName, String passwordUser){
     username = userName;
     password = passwordUser;
@@ -80,10 +84,7 @@ public void SetUser(String userName, String passwordUser){
  //System.out.println("SQLState: " + ex.getSQLState());
  //System.out.println("VendorError: " + ex.getErrorCode());
             return conn;
-} 
-       public Connection getConn(){
-           return conn;
-       }
+}
 
     public  boolean TestConnectDatabase() throws SQLException {
         boolean OK = false;
@@ -96,7 +97,6 @@ public void SetUser(String userName, String passwordUser){
             OK = true;
         } catch (SQLException ex) {
 
-            OK = false;
             MyAlert.ShowAlertError("Не коректні дані про користувача", null);
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
@@ -115,10 +115,7 @@ public void SetUser(String userName, String passwordUser){
             System.out.println("Database created by path " + url);
 
         }
-        else{
-
-        }
-        if(OK)  conn.close();
+        if(OK)  Objects.requireNonNull(conn).close();
         return OK;
     }
 

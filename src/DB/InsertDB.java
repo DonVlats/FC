@@ -13,7 +13,7 @@ import java.sql.*;
  *
  * @author 123
  */
-public class InsertDB {
+class InsertDB {
     private static Connection conn = null;
 
     public static Integer insert(Player player) throws SQLException {
@@ -43,7 +43,7 @@ public class InsertDB {
                  pst.setInt(4, player.getPhone());
                  pst.setString(5, player.getBday());
                   System.out.println(pst.toString());
-                 pst.executeUpdate();
+                  count = pst.executeUpdate();
                   int idPersonalData = 0;
                   ResultSet resultSet = pst.executeQuery("select last_insert_id() as last_id from football_club.personal_data");
                   if(resultSet.next()){
@@ -63,7 +63,7 @@ public class InsertDB {
                   pst.setInt(3, player.getSalary());
 
                   System.out.println(pst.toString());
-                  pst.executeUpdate();
+                  count = pst.executeUpdate();
 
 
                   int idContractData = 0 ;
@@ -88,7 +88,7 @@ public class InsertDB {
                   pst.setInt(3, idContractData);
 
                   System.out.println(pst.toString());
-                  pst.executeUpdate();
+                  count =   pst.executeUpdate();
                   int Id_subscriber = 0;
                    resultSet = pst.executeQuery("select last_insert_id() as last_id from football_club.personal_data");
                   if(resultSet.next()){
@@ -106,7 +106,7 @@ public class InsertDB {
                   pst.setInt(2, idContractData);
 
                   System.out.println(pst.toString());
-                  pst.executeUpdate();
+                  count = pst.executeUpdate();
                   if(conn != null){
                  conn.commit();
                  conn.close();}
@@ -146,15 +146,28 @@ public class InsertDB {
             pst.setString(2, password);
 
             System.out.println(pst.toString());
-            pst.executeUpdate();
+            count = pst.executeUpdate();
+            if (grand == "Адмін"){
+                sql = ("GRANT ALL ON *.* TO  ?@'localhost'") ;
+                pst = conn.prepareStatement(sql);
+                pst.setString(1, login);
+                count = pst.executeUpdate();
+            }
+            else
+            {
+                sql = ("GRANT Select,execute ON *.* TO  ?@'localhost'") ;
+                pst = conn.prepareStatement(sql);
+                pst.setString(1, login);
+                count =  pst.executeUpdate();
+            }
 
-             sql = (grand) ;
-             pst = conn.prepareStatement(sql);
-            pst.setString(1, login);
-
-
+            sql = "INSERT INTO `football_club`.`users` (`Role`, `login`) VALUES (?, ?);";
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, grand);
+            pst.setString(2, login);
+            count = pst.executeUpdate();
             System.out.println(pst.toString());
-            pst.executeUpdate();
+
 
             if(conn != null){
                 conn.commit();
@@ -213,7 +226,7 @@ public class InsertDB {
 
 
             System.out.println(pst.toString());
-            pst.executeUpdate();
+            count = pst.executeUpdate();
 
 
 
@@ -277,7 +290,7 @@ public class InsertDB {
 
 
             System.out.println(pst.toString());
-            pst.executeUpdate();
+            count = pst.executeUpdate();
 
 
 
@@ -337,7 +350,7 @@ public class InsertDB {
             pst.setInt(4, employee.getPhone());
             pst.setString(5, employee.getBday());
             System.out.println(pst.toString());
-            pst.executeUpdate();
+            count = pst.executeUpdate();
             int idPersonalData = 0;
             ResultSet resultSet = pst.executeQuery("select last_insert_id() as last_id from football_club.personal_data");
             if (resultSet.next()) {
@@ -357,7 +370,7 @@ public class InsertDB {
             pst.setInt(3, employee.getSalary());
 
             System.out.println(pst.toString());
-            pst.executeUpdate();
+            count =  pst.executeUpdate();
 
 
             int idContractData = 0;
@@ -381,7 +394,7 @@ public class InsertDB {
             pst.setInt(3, idContractData);
 
             System.out.println(pst.toString());
-            pst.executeUpdate();
+            count =  pst.executeUpdate();
             int Id_subscriber = 0;
             resultSet = pst.executeQuery("select last_insert_id() as last_id from football_club.personal_data");
             if (resultSet.next()) {
@@ -399,7 +412,7 @@ public class InsertDB {
             pst.setInt(2, idContractData);
 
             System.out.println(pst.toString());
-            pst.executeUpdate();
+            count = pst.executeUpdate();
             if (conn != null) {
                 conn.commit();
                 conn.close();

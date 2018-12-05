@@ -1,40 +1,36 @@
 package Controller;
 
 import DB.DB;
-import POJO.Employee;
+import POJO.Game;
 import POJO.MyAlert;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
-public class EmployeeInsertDialogController {
+public class GameInsertDialogController {
+
 
     @FXML
-    private TextField NameField;
+    private TextField opponentTF;
     @FXML
-    private TextField SurnameField;
+    private TextField competitionTF;
     @FXML
-    private TextField CountryField;
+    private TextField dataTF;
     @FXML
-    private TextField PhoneField;
+    private TextField scoreTF;
     @FXML
-    private TextField SignField;
+    private TextField scoreOpponentTF;
     @FXML
-    private TextField EndField;
-    @FXML
-    private TextField SalaryField;
-    @FXML
-    private TextField PostField;
-    @FXML
-    private TextField BdayField;
+    private ChoiceBox homeTF;
 
 
 
 
     private Stage dialogStage;
-    private Employee employee;
+    private Game game;
 
 
     /**
@@ -67,7 +63,13 @@ public class EmployeeInsertDialogController {
     }
 
 
+    @FXML
+    public void initialize(){
+        homeTF.getItems().clear();
 
+        homeTF .getItems().add("Так");
+        homeTF .getItems().add("НІ");
+    }
 
     /**
      * Validates the user input in the text fields.
@@ -77,26 +79,22 @@ public class EmployeeInsertDialogController {
     private boolean isInputValid() {
         String errorMessage = "";
 
-        if (NameField.getText() == null || NameField.getText().length() == 0) {
+        if (opponentTF.getText() == null || opponentTF.getText().length() == 0) {
             errorMessage += "ID!\n";
         }
-        if (SurnameField.getText() == null || SurnameField.getText().length() == 0) {
+        if (competitionTF.getText() == null || competitionTF.getText().length() == 0) {
             errorMessage += "Title !\n";
         }
-        if (CountryField.getText() == null || CountryField.getText().length() == 0) {
+        if (dataTF.getText() == null || dataTF.getText().length() == 0) {
             errorMessage += "Year!\n";
         }
 
-        if (PhoneField.getText() == null || PhoneField.getText().length() == 0) {
-            errorMessage += "director!\n";
-        } else {
+         else {
             // try to parse the postal code into an int.
             try {
-                Integer.parseInt(SalaryField.getText());
-                Integer.parseInt(PhoneField.getText());
+                Integer.parseInt(scoreTF.getText());
+                Integer.parseInt(scoreOpponentTF.getText());
 
-                //Integer.parseInt(CountryField.getText());
-                // Integer.parseInt(CountryField.getText());
 
 
             } catch (NumberFormatException e) {
@@ -106,18 +104,18 @@ public class EmployeeInsertDialogController {
 
 
 
-
         if (errorMessage.length() == 0) {
-            employee = new Employee(0,
-                    NameField.getText()
-                    , SurnameField.getText(),
-                    BdayField.getText(),
-                    CountryField.getText() ,
-                    SignField.getText(),
-                    EndField.getText(),
-                    Integer.parseInt(SalaryField.getText()),
-                    Integer.parseInt(PhoneField.getText()),
-                    PostField.getText()
+            int home = 0;
+           if( homeTF.getSelectionModel().getSelectedItem()=="Так")
+               home = 1;
+            game = new Game(0,
+                    opponentTF.getText()
+                    ,competitionTF.getText() ,
+                    dataTF.getText() ,
+                    Integer.parseInt(scoreTF.getText()) ,
+                    Integer.parseInt(scoreOpponentTF.getText()),home
+
+                    //
             );
             return true;
         } else {
@@ -132,7 +130,7 @@ public class EmployeeInsertDialogController {
         // Initialize the person table with the two columns.
         if(this.isInputValid()){
 
-            if(DB.insertDB(employee) > 0)
+            if(DB.insertDB(game) > 0)
                 MyAlert.ShowAlertInfo("Дані успішно додано");
 
 

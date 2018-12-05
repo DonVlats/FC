@@ -11,13 +11,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  *
  * @author 123
  */
-public class DeleteDB {
+class DeleteDB {
     private static Connection conn = null;
 
     public static Integer delete( int Id) throws SQLException {
@@ -46,7 +45,7 @@ public class DeleteDB {
                    pst = conn.prepareStatement(sql);
                   pst.setInt(1,Id_Contract);
                   System.out.println(pst.toString());
-                  pst.executeUpdate();
+                  count = pst.executeUpdate();
                   if(conn != null){
                       conn.commit();
                      conn.close();

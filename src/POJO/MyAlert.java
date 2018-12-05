@@ -23,7 +23,7 @@ public class MyAlert {
             
             alert.showAndWait();
 } 
-    public static void ShowAlertInfo(String message , Stage stage ){
+    public static void ShowAlertInfo(String message){
      Alert alert = new Alert(Alert.AlertType.INFORMATION);
     alert.setTitle("Інформація");
     alert.setHeaderText(null);

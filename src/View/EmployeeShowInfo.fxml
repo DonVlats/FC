@@ -1,37 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Controller.EmployeeShowInfoController"
-            prefHeight="400.0" prefWidth="600.0">
-    <children>
-        <Button id="showTable" layoutX="372.0" layoutY="418.0" mnemonicParsing="false" onAction="#initialize" text="Вивід" />
-        <ScrollPane prefHeight="347.0" prefWidth="781.0">
-            <content>
-                <TableView id="tableView" fx:id="PlayerTable" prefHeight="340.0">
-                    <columns>
-                        <TableColumn id="colID" fx:id="NameColumn" maxWidth="114.00001525878906" minWidth="76.00001525878906" prefWidth="76.00001525878906" text="Ім'я" />
-                        <TableColumn id="colTitle" fx:id="SurnameColumn" prefWidth="167.0" text="Прізвище" />
-                        <TableColumn id="colYear" fx:id="CountryColumn" prefWidth="120.0" text="Національність" />
-                        <TableColumn id="colDirector" fx:id="BdayColumn" prefWidth="152.0" text="Дана народження" />
-                        <TableColumn id="colDirector" fx:id="SignColumn" prefWidth="73.0" text="Дата підписання" />
-                        <TableColumn id="colDirector" fx:id="EndColumn" prefWidth="69.0" text="Дата завершення контракту" />
-                        <TableColumn id="colDirector" fx:id="PostColumn" prefWidth="77.0" text="Ціна" />
-                        <TableColumn id="colDirector" fx:id="SalaryColumn" prefWidth="67.0" text="Зарплата" />
-                    </columns>
-                </TableView>
-            </content>
-        </ScrollPane>
-        <Button layoutX="25.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleDeletePerson" text="Видалення" />
-        <Button layoutX="691.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleEditPerson" text="Оновлення" />
-        <Button layoutX="573.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleNewMovie" text="Вставка" />
-        <Button layoutX="184.0" layoutY="418.0" mnemonicParsing="false" onAction="#Filter" text="ФІльтр" />
-        <Button layoutX="369.0" layoutY="457.0" mnemonicParsing="false" onAction="#ShowChoseAction" text="Меню" />
-    </children>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../Login.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeShowInfoController">
+    <Button id="showTable" layoutX="203.0" layoutY="385.0" mnemonicParsing="false" onAction="#initialize" prefHeight="33.0" prefWidth="121.0" text="Вивід" />
+    <ScrollPane layoutY="-1.0" prefHeight="348.0" prefWidth="815.0">
+        <TableView id="tableView" fx:id="PlayerTable" prefHeight="340.0">
+            <columns>
+                <TableColumn id="colID" fx:id="NameColumn" maxWidth="114.00001525878906" minWidth="76.00001525878906" prefWidth="76.00001525878906" text="Ім'я" />
+                <TableColumn id="colTitle" fx:id="SurnameColumn" prefWidth="167.0" text="Прізвище" />
+                <TableColumn id="colYear" fx:id="CountryColumn" prefWidth="120.0" text="Національність" />
+                <TableColumn id="colDirector" fx:id="BdayColumn" prefWidth="152.0" text="Дана народження" />
+                <TableColumn id="colDirector" fx:id="SignColumn" prefWidth="73.0" text="Дата підписання" />
+                <TableColumn id="colDirector" fx:id="EndColumn" prefWidth="69.0" text="Дата завершення контракту" />
+                <TableColumn id="colDirector" fx:id="PostColumn" prefWidth="77.0" text="Ціна" />
+                <TableColumn id="colDirector" fx:id="SalaryColumn" prefWidth="68.0" text="Зарплата" />
+            </columns>
+        </TableView>
+    </ScrollPane>
+    <Button fx:id="deleteBTN" layoutX="26.0" layoutY="385.0" mnemonicParsing="false" onAction="#handleDeletePerson" text="Видалення" />
+    <Button fx:id="updateBTN" layoutX="663.0" layoutY="385.0" mnemonicParsing="false" onAction="#handleEditPerson" prefHeight="33.0" prefWidth="121.0" text="Оновлення" />
+    <Button fx:id="insertBTN" layoutX="495.0" layoutY="385.0" mnemonicParsing="false" onAction="#handleNewMovie" prefHeight="33.0" prefWidth="121.0" text="Вставка" />
+    <Button layoutX="381.0" layoutY="446.0" mnemonicParsing="false" onAction="#ShowChoseAction" text="Меню" />
 </AnchorPane>

@@ -11,13 +11,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  *
  * @author 123
  */
-public class UpdateDB {
+class UpdateDB {
 
     private static Connection conn = null;
 
@@ -78,7 +77,7 @@ public class UpdateDB {
 
 
                   System.out.println(pst.toString());
-                  pst.executeUpdate();
+                  count =  pst.executeUpdate();
 
 
 
@@ -96,7 +95,7 @@ public class UpdateDB {
                   else
                       MyAlert.ShowAlertError("SQLException: " , null);
 
-                  System.out.println("SQLException: " + ex.getMessage());
+                  System.out.println("SQLException: " + ex.getMessage() + ex.getMessage());
                   System.out.println("SQLState: " + ex.getSQLState());
                   System.out.println("VendorError: " + ex.getErrorCode());
 
@@ -129,11 +128,11 @@ public class UpdateDB {
              pst = conn.prepareStatement("SHOW GRANTS FOR ?@localhost");
             pst.setString(1, oldLogin);
             ResultSet rst = pst.executeQuery();
-            String grand = "" ;
+            StringBuilder grand = new StringBuilder();
             do {
                 rst.next();
                 rst.next();
-                grand += rst.getString("Grants for "+oldLogin+"@localhost");
+                grand.append(rst.getString("Grants for " + oldLogin + "@localhost"));
             }
             while (rst.next());
 
@@ -143,8 +142,8 @@ public class UpdateDB {
             pst.setString(2, oldLogin);
 
             System.out.println(pst.toString());
-            pst.executeUpdate();
-            sql = (grand);
+            count =  pst.executeUpdate();
+            sql = (grand.toString());
             pst = conn.prepareStatement(sql);
            // pst.setString(1, grand);
             //pst.setString(2, oldLogin);
@@ -166,7 +165,7 @@ public class UpdateDB {
              if(ex.getErrorCode() == 1064)
                 MyAlert.ShowAlertError("Дані не вставлено, оскільки вони некоректні\n" + ex.getMessage(), null);
             else
-                MyAlert.ShowAlertError("SQLException: ", null);
+                MyAlert.ShowAlertError("SQLException: " + ex.getMessage(), null);
 
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
@@ -207,7 +206,7 @@ public class UpdateDB {
             pst.setInt(6,game.getHome());
             pst.setInt(7,game.getId());
             System.out.println(pst.toString());
-            pst.executeUpdate();
+            count = pst.executeUpdate();
 
 
 
@@ -223,7 +222,7 @@ public class UpdateDB {
             if(ex.getErrorCode() == 1064)
                 MyAlert.ShowAlertError("Дані не вставлено, оскільки вони некоректні\n" + ex.getMessage(), null);
             else
-                MyAlert.ShowAlertError("SQLException: ", null);
+                MyAlert.ShowAlertError("SQLException: " + ex.getMessage(), null);
 
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
@@ -264,7 +263,7 @@ public class UpdateDB {
             pst.setInt(6, gameStat.getAssist());
             pst.setInt(7,gameStat.getId());
             System.out.println(pst.toString());
-            pst.executeUpdate();
+            count =  pst.executeUpdate();
 
 
 
@@ -280,7 +279,7 @@ public class UpdateDB {
             if(ex.getErrorCode() == 1064)
                 MyAlert.ShowAlertError("Дані не вставлено, оскільки вони некоректні\n" + ex.getMessage(), null);
             else
-                MyAlert.ShowAlertError("SQLException: " , null);
+                MyAlert.ShowAlertError("SQLException: " + ex.getMessage() , null);
 
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
@@ -321,7 +320,7 @@ public class UpdateDB {
             pst.setString(5, employee.getBday());
             pst.setInt(6, employee.getId());
             System.out.println(pst.toString());
-            pst.executeUpdate();
+            count =  pst.executeUpdate();
 
             sql = ("UPDATE `football_club`.`contract_data`\n" +
                     "SET\n" +
@@ -337,7 +336,7 @@ public class UpdateDB {
             pst.setInt(4, employee.getId());
 
             System.out.println(pst.toString());
-            pst.executeUpdate();
+            count = pst.executeUpdate();
 
 
 
@@ -354,7 +353,7 @@ public class UpdateDB {
 
 
             System.out.println(pst.toString());
-            pst.executeUpdate();
+            count =  pst.executeUpdate();
 
 
 
@@ -370,7 +369,7 @@ public class UpdateDB {
             else if(ex.getErrorCode() == 1064)
                 MyAlert.ShowAlertError("Дані не вставлено, оскільки вони некоректні\n" + ex.getMessage(), null);
             else
-                MyAlert.ShowAlertError("SQLException: " , null);
+                MyAlert.ShowAlertError("SQLException: "  + ex.getMessage(), null);
 
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());

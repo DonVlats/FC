@@ -16,9 +16,10 @@ import java.text.DecimalFormat;
 import java.text.ParsePosition;
 import java.util.ArrayList;
 
+@SuppressWarnings("JavaDoc")
 public class GameStatUpdateDialogController {
-    GameStat gameStat;
-    private ArrayList<Player> personData = new ArrayList<>();
+    private GameStat gameStat;
+    private final ArrayList<Player> personData = new ArrayList<>();
     @FXML
     private ChoiceBox playerCB;
     @FXML
@@ -36,9 +37,6 @@ public class GameStatUpdateDialogController {
 
     private  GameStat gameOldStat;
     private Stage dialogStage;
-    private Game game;
-    private boolean okClicked = false;
-    private boolean isUpdate = false;
 
 
     /**
@@ -55,12 +53,12 @@ public class GameStatUpdateDialogController {
      *
      * @param player
      */
+    @SuppressWarnings("JavaDoc")
     public void setPerson(GameStat player) {
         this.gameOldStat = player;
-        if(player.getId() != 0) ;
 
 
-            playerCB.getSelectionModel().select(2);;
+        playerCB.getSelectionModel().select(2);
         gameTF.setText(player.getOpponent());
         startCB.getSelectionModel().select(player.getStart());
         subCB.getSelectionModel().select(player.getSubstitutes());
@@ -75,7 +73,7 @@ public class GameStatUpdateDialogController {
      * @return
      */
     public boolean isOkClicked() {
-        return okClicked;
+        return false;
     }
 
 
@@ -121,7 +119,7 @@ public class GameStatUpdateDialogController {
             }
         }));
         startCB.getItems().clear();
-        personData = DB.readDB(    personData,FilterDialogController.selectMessage);
+        DB.readDB(personData);
         for (Player element : personData) {
             playerCB .getItems().addAll(element.getName() + " " + element.getSurname());
         }
@@ -135,7 +133,6 @@ public class GameStatUpdateDialogController {
         subCB .getItems().add("Так");
         subCB .getItems().add("НІ");
         subCB.getSelectionModel().select(0);
-        this.game = game;
         if(game != null)
             gameTF.setText(game.getOpponent());
         else
@@ -202,9 +199,9 @@ public class GameStatUpdateDialogController {
         // Initialize the person table with the two columns.
         if(this.isInputValid()){
 
-            int count = DB.updateDB(gameStat);
-            if(count > 0 ){
-                MyAlert.ShowAlertInfo("Кількість рядків які було встановлено " + count , dialogStage);
+
+            if(DB.updateDB(gameStat) > 0){
+                MyAlert.ShowAlertInfo("Дані успішно оновленно");
             }
 
             dialogStage.close();

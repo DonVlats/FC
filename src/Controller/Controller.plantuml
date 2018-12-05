@@ -1,0 +1,429 @@
+@startuml
+
+title __CONTROLLER's Class Diagram__\n
+
+  package Controller {
+    class AuthController {
+        - grand : ObservableList<String>
+        - UserNameFiel : TextField
+        - PasswordFiel : TextField
+        + OkClicked()
+        + CencelClicked()
+    }
+  }
+  
+
+  package Controller {
+    class ChoseActionController {
+        + userBTN : Button
+        - btn : Button
+        + PlayerShow()
+        + EditUsers()
+        + EmployeeShow()
+        + GameShow()
+        + AuthShow()
+        + init()
+    }
+  }
+  
+
+  package Controller {
+    class ChoseActionForAccountantController {
+        - btn : Button
+        + PlayerShow()
+    }
+  }
+  
+
+  package Controller {
+    class ChoseActionForPlayerController {
+        - btn : Button
+        + PlayerShow()
+        + GameShow()
+        + AuthShow()
+    }
+  }
+  
+
+  package Controller {
+    class CreateUserController {
+        - personData : ObservableList<User>
+        - TableUsers : TableView<User>
+        - Login : TableColumn<User, String>
+        - Grand : TableColumn<User, String>
+        - choiceBoxGrand : ChoiceBox
+        - TFLoginCreate : TextField
+        - TFPassCreate : TextField
+        - OldLogin : TextField
+        - NewLogin : TextField
+        - NewPassword : TextField
+        - UpdateUsers : Tab
+        - RootTavleUser : TabPane
+        - grand : ObservableList<String>
+        + initialize()
+        - init()
+        - DeleteUser()
+        - BTNCreateUser()
+        - ShowUpdateTab()
+        - UpdateUserInDB()
+        - ValidDate()
+        - ShowChoseAction()
+    }
+  }
+  
+
+  package Controller {
+    class EmployeeInfoForAccountantController {
+        - stage : Stage
+        - personData : ObservableList<Employee>
+        - PlayerTable : TableView<Employee>
+        - NameColumn : TableColumn<Employee, String>
+        - CountryColumn : TableColumn<Employee, String>
+        - SurnameColumn : TableColumn<Employee, String>
+        - BdayColumn : TableColumn<Employee, String>
+        - SignColumn : TableColumn<Employee, String>
+        - EndColumn : TableColumn<Employee, String>
+        - SalaryColumn : TableColumn<Employee, Integer>
+        - PostColumn : TableColumn<Employee, String>
+        + initialize()
+        - init()
+        + setDialogStage()
+        - ShowChoseAction()
+    }
+  }
+  
+
+  package Controller {
+    class EmployeeInsertDialogController {
+        - NameField : TextField
+        - SurnameField : TextField
+        - CountryField : TextField
+        - PhoneField : TextField
+        - SignField : TextField
+        - EndField : TextField
+        - SalaryField : TextField
+        - PostField : TextField
+        - BdayField : TextField
+        - dialogStage : Stage
+        + setDialogStage()
+        + isOkClicked()
+        - isInputValid()
+        + AddClicked()
+        + CencelClicked()
+    }
+  }
+  
+
+  package Controller {
+    class EmployeeShowInfoController {
+        - stage : Stage
+        - personData : ObservableList<Employee>
+        - deleteBTN : Button
+        - insertBTN : Button
+        - updateBTN : Button
+        - PlayerTable : TableView<Employee>
+        - NameColumn : TableColumn<Employee, String>
+        - CountryColumn : TableColumn<Employee, String>
+        - SurnameColumn : TableColumn<Employee, String>
+        - BdayColumn : TableColumn<Employee, String>
+        - SignColumn : TableColumn<Employee, String>
+        - EndColumn : TableColumn<Employee, String>
+        - SalaryColumn : TableColumn<Employee, Integer>
+        - PostColumn : TableColumn<Employee, String>
+        + initialize()
+        - init()
+        - handleDeletePerson()
+        - handleNewMovie()
+        - handleEditPerson()
+        + setDialogStage()
+        - ShowChoseAction()
+    }
+  }
+  
+
+  package Controller {
+    class EmployeeUpdateDialogController {
+        + PostField : TextField
+        - NameField : TextField
+        - SurnameField : TextField
+        - CountryField : TextField
+        - PhoneField : TextField
+        - SignField : TextField
+        - EndField : TextField
+        - SalaryField : TextField
+        - BdayField : TextField
+        - dialogStage : Stage
+        + setDialogStage()
+        + isOkClicked()
+        - isInputValid()
+        + AddClicked()
+        + CencelClicked()
+        + setPerson()
+    }
+  }
+  
+
+  package Controller {
+    class GameInsertDialogController {
+        - opponentTF : TextField
+        - competitionTF : TextField
+        - dataTF : TextField
+        - scoreTF : TextField
+        - scoreOpponentTF : TextField
+        - homeTF : ChoiceBox
+        - dialogStage : Stage
+        + setDialogStage()
+        + isOkClicked()
+        + initialize()
+        - isInputValid()
+        + AddClicked()
+        + CencelClicked()
+    }
+  }
+  
+
+  package Controller {
+    class GameShowInfoController {
+        - stage : Stage
+        - gameData : ObservableList<Game>
+        - deleteBTN : Button
+        - insertBTN : Button
+        - updateBTN : Button
+        - gameTable : TableView<Game>
+        - opponentColumn : TableColumn<Game, String>
+        - competitionColumn : TableColumn<Game, String>
+        - dataColumn : TableColumn<Game, String>
+        - scoreColumn : TableColumn<Game, Integer>
+        - scoreOpponentColumn : TableColumn<Game, Integer>
+        - homeColumn : TableColumn<Game, String>
+        + initialize()
+        + ShowStat()
+        - init()
+        - handleNewMovie()
+        - handleEditPerson()
+        + setDialogStage()
+        - ShowChoseAction()
+        - handleDeletePerson()
+    }
+  }
+  
+
+  package Controller {
+    class GameStatInsertDialogController {
+        - personData : ArrayList<Player>
+        - playerCB : ChoiceBox
+        - gameTF : TextField
+        - startCB : ChoiceBox
+        - subCB : ChoiceBox
+        - goalTF : TextField
+        - assistTF : TextField
+        - dialogStage : Stage
+        + setDialogStage()
+        + isOkClicked()
+        + initialize()
+        - isInputValid()
+        + AddClicked()
+        + CencelClicked()
+    }
+  }
+  
+
+  package Controller {
+    class GameStatShowController {
+        - stage : Stage
+        - gameData : ObservableList<GameStat>
+        - gameStatTable : TableView<GameStat>
+        - nameColumn : TableColumn<GameStat, String>
+        - surnameColumn : TableColumn<GameStat, String>
+        - startColumn : TableColumn<GameStat, String>
+        - substitutesColumn : TableColumn<GameStat, String>
+        - goalColumn : TableColumn<GameStat, Integer>
+        - assistColumn : TableColumn<GameStat, Integer>
+        + ShowStat()
+        + initializeStat()
+        - init()
+        - handleNewMovie()
+        + setGame()
+        - handleEditPerson()
+        + setDialogStage()
+        - ShowChoseAction()
+        - handleDeletePerson()
+    }
+  }
+  
+
+  package Controller {
+    class GameStatUpdateDialogController {
+        - personData : ArrayList<Player>
+        - playerCB : ChoiceBox
+        - gameTF : TextField
+        - startCB : ChoiceBox
+        - subCB : ChoiceBox
+        - goalTF : TextField
+        - assistTF : TextField
+        - dialogStage : Stage
+        + setDialogStage()
+        + setPerson()
+        + isOkClicked()
+        + initialize()
+        - isInputValid()
+        + AddClicked()
+        + CencelClicked()
+    }
+  }
+  
+
+  package Controller {
+    class GameUpdateDialogController {
+        - opponentTF : TextField
+        - competitionTF : TextField
+        - dataTF : TextField
+        - scoreTF : TextField
+        - scoreOpponentTF : TextField
+        - homeTF : ChoiceBox
+        - dialogStage : Stage
+        + setDialogStage()
+        + isOkClicked()
+        + initialize()
+        - isInputValid()
+        + AddClicked()
+        + CencelClicked()
+        + setPerson()
+    }
+  }
+  
+
+  package Controller {
+    class InfoForPlayerController {
+    }
+  }
+  
+
+  package Controller {
+    class PlayerInsertDialogController {
+        - NameField : TextField
+        - SurnameField : TextField
+        - CountryField : TextField
+        - PhoneField : TextField
+        - SignField : TextField
+        - EndField : TextField
+        - SalaryField : TextField
+        - PriceField : TextField
+        - BdayField : TextField
+        - dialogStage : Stage
+        + setDialogStage()
+        + isOkClicked()
+        - isInputValid()
+        + AddClicked()
+        + CencelClicked()
+    }
+  }
+  
+
+  package Controller {
+    class PlayerOverviewController {
+        - stage : Stage
+        - personData : ObservableList<Player>
+        - deleteBTN : Button
+        - insertBTN : Button
+        - updateBTN : Button
+        - PlayerTable : TableView<Player>
+        - NameColumn : TableColumn<Player, String>
+        - CountryColumn : TableColumn<Player, String>
+        - SurnameColumn : TableColumn<Player, String>
+        - BdayColumn : TableColumn<Player, String>
+        - SignColumn : TableColumn<Player, String>
+        - EndColumn : TableColumn<Player, String>
+        - SalaryColumn : TableColumn<Player, Integer>
+        - PriceColumn : TableColumn<Player, Integer>
+        + initialize()
+        - init()
+        - handleDeletePerson()
+        - handleNewMovie()
+        - handleEditPerson()
+        + setDialogStage()
+        - ShowChoseAction()
+    }
+  }
+  
+
+  package Controller {
+    class PlayerStatInfoShowController {
+        ~ idPlayer : int
+        - gameData : ObservableList<GameStat>
+        - gameStatTable : TableView<GameStat>
+        - nameColumn : TableColumn<GameStat, String>
+        - surnameColumn : TableColumn<GameStat, String>
+        - startColumn : TableColumn<GameStat, String>
+        - substitutesColumn : TableColumn<GameStat, String>
+        - goalColumn : TableColumn<GameStat, Integer>
+        - assistColumn : TableColumn<GameStat, Integer>
+        - opponentColumn : TableColumn<GameStat, String>
+        + ShowStat()
+        + initializeStat()
+        - init()
+    }
+  }
+  
+
+  package Controller {
+    class PlayerStatShowController {
+        - idGame : int
+        - stage : Stage
+        - gameData : ObservableList<GameStat>
+        - gameStatTable : TableView<GameStat>
+        - nameColumn : TableColumn<GameStat, String>
+        - surnameColumn : TableColumn<GameStat, String>
+        - startColumn : TableColumn<GameStat, String>
+        - goalColumn : TableColumn<GameStat, Integer>
+        - assistColumn : TableColumn<GameStat, Integer>
+        + ShowStat()
+        + initializeStat()
+        - init()
+    }
+  }
+  
+
+  package Controller {
+    class PlayerUpdateDialogController {
+        - NameField : TextField
+        - SurnameField : TextField
+        - CountryField : TextField
+        - PhoneField : TextField
+        - SignField : TextField
+        - EndField : TextField
+        - SalaryField : TextField
+        - PriceField : TextField
+        - BdayField : TextField
+        - dialogStage : Stage
+        + setDialogStage()
+        + isOkClicked()
+        - isInputValid()
+        + AddClicked()
+        + CencelClicked()
+        + setPerson()
+    }
+  }
+  
+
+  EmployeeInsertDialogController o-- Employee : employee
+  EmployeeUpdateDialogController o-- Employee : employee
+  GameInsertDialogController o-- Game : game
+  GameStatInsertDialogController o-- GameStat : gameStat
+  GameStatInsertDialogController o-- Game : game
+  GameStatShowController o-- Game : game
+  GameStatUpdateDialogController o-- GameStat : gameStat
+  GameStatUpdateDialogController o-- GameStat : gameOldStat
+  GameUpdateDialogController o-- Game : game
+  PlayerInsertDialogController o-- Player : player
+  PlayerUpdateDialogController o-- Player : player
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

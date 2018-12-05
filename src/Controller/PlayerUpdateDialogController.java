@@ -20,6 +20,7 @@ import java.sql.SQLException;
  *
  * @author 123
  */
+@SuppressWarnings("JavaDoc")
 public class PlayerUpdateDialogController {
     
  @FXML
@@ -46,8 +47,6 @@ public class PlayerUpdateDialogController {
 
     private Stage dialogStage;
     private Player player;
-    private boolean okClicked = false;
-    private boolean isUpdate = false;
 
 
     /**
@@ -59,12 +58,7 @@ public class PlayerUpdateDialogController {
         this.dialogStage = dialogStage;
     }
 
-    /**
-     * Sets the person to be edited in the dialog.
-     * 
-     * @param player
-     */
-   /* public void setPerson(Player player) {
+    /* public void setPerson(Player player) {
         this.player = player;
         if(player.getBday() != 0)
         isUpdate = true;
@@ -81,7 +75,7 @@ public class PlayerUpdateDialogController {
      * @return
      */
     public boolean isOkClicked() {
-        return okClicked;
+        return false;
     }
 
     
@@ -127,13 +121,13 @@ public class PlayerUpdateDialogController {
 
       if (errorMessage.length() == 0) {
              player = new Player(this.player.getId(),
-                     NameField.getText().toString()
-                    ,SurnameField.getText().toString() ,
-                     CountryField.getText().toString() ,
+                     NameField.getText()
+                    , SurnameField.getText(),
+                     CountryField.getText(),
                      Integer.parseInt(PhoneField.getText()),
-                     BdayField.getText().toString(),
-                     SignField.getText().toString(),
-                     EndField.getText().toString(),
+                     BdayField.getText(),
+                     SignField.getText(),
+                     EndField.getText(),
                      Integer.parseInt(SalaryField.getText()),
                      Integer.parseInt(PriceField.getText())
             //
@@ -151,7 +145,9 @@ public class PlayerUpdateDialogController {
         // Initialize the person table with the two columns.
          if(this.isInputValid())
       
-            DB.updateDB(player);
+            if(DB.updateDB(player) > 0){
+                MyAlert.ShowAlertInfo("Дані успішно оновленно");
+            }
                     dialogStage.close();
         
             }

@@ -18,150 +18,156 @@ public class DB {
 
 
 
-    public static ObservableList<Player> readDB(ObservableList<Player> personData, String select){
+    public static void readOBlistDB(ObservableList<Player> personData){
    System.out.println("ReadDB\n");
-      personData = SelectDB.SelectPlayer(personData, select);
-          System.out.println("EndReadDB\n");
-   
-    return personData;
-}   public static ArrayList<Player> readDB(ArrayList<Player> personData, String select){
-   System.out.println("ReadDB\n");
-      personData = SelectDB.SelectPlayer(personData, select);
-          System.out.println("EndReadDB\n");
+        SelectDB.SelectPlayer(personData);
+        System.out.println("EndReadDB\n");
 
-    return personData;
-}   public static ObservableList<Game> readGameDB(ObservableList<Game> gameData){
+    } public static void readEmployeeForAccountantDB(ObservableList<Employee> personData){
    System.out.println("ReadDB\n");
-        gameData = SelectDB.SelectGame(gameData);
-          System.out.println("EndReadDB\n");
+        SelectDB.SelectEmployeeForAccountant(personData);
+        System.out.println("EndReadDB\n");
 
-    return gameData;
+    }   public static void readDB(ArrayList<Player> personData){
+   System.out.println("ReadDB\n");
+        SelectDB.SelectPlayer(personData);
+        System.out.println("EndReadDB\n");
+
+    }   public static void readGameDB(ObservableList<Game> gameData){
+   System.out.println("ReadDB\n");
+        SelectDB.SelectGame(gameData);
+        System.out.println("EndReadDB\n");
+
+    }
+public static void readGameStatDB(ObservableList<GameStat> gameData, int id){
+   System.out.println("ReadDB\n");
+    SelectDB.SelectGameStat(gameData, id);
+    System.out.println("EndReadDB\n");
+
 }
-public static ObservableList<GameStat> readGameStatDB(ObservableList<GameStat> gameData, int id){
+public static void readPlayerStatDB(ObservableList<GameStat> gameData, int id){
    System.out.println("ReadDB\n");
-        gameData = SelectDB.SelectGameStat(gameData, id);
-          System.out.println("EndReadDB\n");
+    SelectDB.SelectPlayerStat(gameData, id);
+    System.out.println("EndReadDB\n");
 
-    return gameData;
 }
-public static ObservableList<User> readDB(ObservableList<User> personData){
+    public static void readPlayerGameStatDB(ObservableList<GameStat> gameData, int id) {
+        System.out.println("ReadDB\n");
+        SelectDB.SelectPlayerInfoStat(gameData, id);
+        System.out.println("EndReadDB\n");
+    }
+public static void readDB(ObservableList<User> personData){
    System.out.println("ReadDB\n");
-      personData = SelectDB.SelectUser(personData);
-          System.out.println("EndReadDB\n");
+    SelectDB.SelectUser(personData);
+    System.out.println("EndReadDB\n");
 
-    return personData;
-}public static ObservableList<Employee> readEmployeeDB(ObservableList<Employee> personData){
+}public static String readDB(String login){
    System.out.println("ReadDB\n");
-      personData = SelectDB.SelectEmployee(personData);
-          System.out.println("EndReadDB\n");
+    return SelectDB.SelectUser(login);
 
-    return personData;
+
 }
+public static void readEmployeeDB(ObservableList<Employee> personData){
+   System.out.println("ReadDB\n");
+        SelectDB.SelectEmployee(personData);
+        System.out.println("EndReadDB\n");
+
+    }
      
     public static Integer deleteDB(int Id) throws SQLException {
    System.out.println("DeleteDB\n");
-      int count = DeleteDB.delete(Id);
-          System.out.println("EndDeleteDB\n");
-   
-    return count;
-};
+     return DeleteDB.delete(Id);
+
+}
+
     public static Integer deleteGameDB(int Id) throws SQLException {
    System.out.println("DeleteDB\n");
-      int count = DeleteDB.deleteGame(Id);
-          System.out.println("EndDeleteDB\n");
+      return DeleteDB.deleteGame(Id);
 
-    return count;
-};
-public static Integer deleteDB(String Id) throws SQLException {
+}
+
+    public static Integer deleteDB(String Id) throws SQLException {
    System.out.println("DeleteDB\n");
-      int count = DeleteDB.deleteUser(Id);
-          System.out.println("EndDeleteDB\n");
+    return DeleteDB.deleteUser(Id);
 
-    return count;
-};
+
+}
+
     public static Integer deleteEmployeeDB(int id) throws SQLException {
         System.out.println("DeleteDB\n");
-        int count = DeleteDB.deleteEmployee(id);
-        System.out.println("EndDeleteDB\n");
+        return DeleteDB.deleteEmployee(id);
 
-        return count;
     }
-    public static boolean deleteGameStatDB(int id) throws SQLException {
+    public static Integer deleteGameStatDB(int id) throws SQLException {
         System.out.println("DeleteDB\n");
-        int count = DeleteDB.deleteGameStat(id);
-        System.out.println("EndDeleteDB\n");
-        if (count > 0)
-            return true;
-        return false;
+        return DeleteDB.deleteGameStat(id);
+
     }
    public static Integer insertDB(Player player) throws SQLException {
    System.out.println("insertDB\n");
-      int count = InsertDB.insert(player);
-          System.out.println("EndDeleteDB\n");
-   
-    return count;
-};   public static Integer insertDB(Employee employee) throws SQLException {
-   System.out.println("insertDB\n");
-      int count = InsertDB.insertEmployee(employee);
-          System.out.println("EndDeleteDB\n");
+     return InsertDB.insert(player);
 
-    return count;
-};   public static Integer insertDB(Game game) throws SQLException {
-   System.out.println("insertDB\n");
-      int count = InsertDB.insertGame(game);
-          System.out.println("EndDeleteDB\n");
+}
 
-    return count;
-};
-public static Integer insertDB(GameStat game) throws SQLException {
+    public static Integer insertDB(Employee employee) throws SQLException {
    System.out.println("insertDB\n");
-      int count = InsertDB.insertGameStat(game);
-          System.out.println("EndDeleteDB\n");
+     return InsertDB.insertEmployee(employee);
 
-    return count;
-};
-   public static Integer insertDB(String login,String grand,String passsword ) throws SQLException {
+}
+
+    public static Integer insertDB(Game game) throws SQLException {
    System.out.println("insertDB\n");
-      int count = InsertDB.insertUser(login, grand, passsword);
-          System.out.println("EndDeleteDB\n");
+    return InsertDB.insertGame(game);
 
-    return count;
-};
-      public static Integer updateDB(Player player) throws SQLException {
+}
+
+    public static Integer insertDB(GameStat game) throws SQLException {
    System.out.println("insertDB\n");
-      int count = UpdateDB.update(player);
-          System.out.println("EndDeleteDB\n");
-   
-    return count;
-};
-      public static Integer updateDB(GameStat gameStat) throws SQLException {
+      return InsertDB.insertGameStat(game);
+
+}
+
+    public static Integer insertDB(String login, String grand, String passsword ) throws SQLException {
    System.out.println("insertDB\n");
-      int count = UpdateDB.updateGameStat(gameStat);
-          System.out.println("EndDeleteDB\n");
+      return InsertDB.insertUser(login, grand, passsword);
 
-    return count;
-};
-      public static Integer updateDB(Game game) throws SQLException {
+
+    }
+
+    public static Integer updateDB(Player player) throws SQLException {
    System.out.println("insertDB\n");
-      int count = UpdateDB.updateGame(game);
-          System.out.println("EndDeleteDB\n");
+      return UpdateDB.update(player);
 
-    return count;
-};      public static Integer updateDB(Employee employee) throws SQLException {
+
+    }
+
+    public static Integer updateDB(GameStat gameStat) throws SQLException {
    System.out.println("insertDB\n");
-      int count = UpdateDB.updateEmployee(employee);
-          System.out.println("EndDeleteDB\n");
+      return UpdateDB.updateGameStat(gameStat);
 
-    return count;
-};
-      public static Integer updateDB(String oldLogin, String login,String passsword ) throws SQLException {
+
+
+}
+
+    public static Integer updateDB(Game game) throws SQLException {
    System.out.println("insertDB\n");
-      int count = UpdateDB.updateUser(oldLogin, login, passsword);
-          System.out.println("EndDeleteDB\n");
+      return UpdateDB.updateGame(game);
 
-    return count;
-};
+}
 
+    public static Integer updateDB(Employee employee) throws SQLException {
+   System.out.println("insertDB\n");
+     return UpdateDB.updateEmployee(employee);
+
+
+    }
+
+    public static Integer updateDB(String oldLogin, String login, String passsword ) throws SQLException {
+   System.out.println("insertDB\n");
+      return UpdateDB.updateUser(oldLogin, login, passsword);
+
+
+    }
 
 
 

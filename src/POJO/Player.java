@@ -60,10 +60,6 @@ public class Player {
         return price;
     }
 
-    public SimpleIntegerProperty getSTid() {
-        return new SimpleIntegerProperty(id);
-    }
-
     public StringProperty getSTName() {
         return new SimpleStringProperty(name);
     }
@@ -114,9 +110,6 @@ public class Player {
 
     public int getPhone() {
         return phone;
-    }
-    public IntegerProperty getStPhone() {
-        return new SimpleIntegerProperty(phone);
     }
 
     public Player() {

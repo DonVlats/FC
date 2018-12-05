@@ -82,10 +82,6 @@ public class Employee {
         return post;
     }
 
-    public SimpleIntegerProperty getSTid() {
-        return new SimpleIntegerProperty(id);
-    }
-
     public StringProperty getSTName() {
         return new SimpleStringProperty(name);
     }

@@ -15,7 +15,7 @@ import java.sql.SQLException;
 
 public class CreateUserController {
 
-    private ObservableList<User> personData = FXCollections.observableArrayList();
+    private final ObservableList<User> personData = FXCollections.observableArrayList();
     @FXML
     private TableView<User> TableUsers;
     @FXML
@@ -40,7 +40,7 @@ public class CreateUserController {
     private TabPane RootTavleUser;
 
 
-    private ObservableList<String> grand  = FXCollections.observableArrayList("Бухгалтер","Футболіст", "Працівник", "Керівник","Адмін");
+    private final ObservableList<String> grand  = FXCollections.observableArrayList("Бухгалтер","Футболіст", "Працівник", "Керівник","Адмін");
     @FXML
     public void initialize() {
         System.out.print("setMainApp - 1 \n");
@@ -54,7 +54,7 @@ public class CreateUserController {
     }
 
     private void init() {
-        personData = DB.readDB(personData);
+        DB.readDB(personData);
         choiceBoxGrand.getItems().clear();
         choiceBoxGrand .getItems().addAll(grand);
 
@@ -71,7 +71,7 @@ public class CreateUserController {
             if(!TableUsers.getSelectionModel().getSelectedItem().getLogin().equals("root")){
             if( DB.deleteDB(  (TableUsers.getSelectionModel().getSelectedItem().getLogin()))
                     > 0){
-                MyAlert.ShowAlertInfo("Видалено", null);
+                MyAlert.ShowAlertInfo("Видалено");
 
             TableUsers.getItems().remove(selectedIndex);}}
             else MyAlert.ShowAlertError("Root", null);
@@ -83,18 +83,23 @@ public class CreateUserController {
 
     @FXML
     private void BTNCreateUser() throws SQLException {
-        System.out.println(TFLoginCreate.getText().toString() + "  " + TFPassCreate.getText().toString() + choiceBoxGrand.getSelectionModel().getSelectedItem());
-      if(!TFLoginCreate.getText().toString().equals("")&&!TFPassCreate.getText().equals(""))
+        System.out.println(TFLoginCreate.getText() + "  " + TFPassCreate.getText() + choiceBoxGrand.getSelectionModel().getSelectedItem());
+/*
+      if(!TFLoginCreate.getText().equals("")&&!TFPassCreate.getText().equals(""))
         if(choiceBoxGrand.getSelectionModel().getSelectedItem()==grand.get((0)))
-            DB.insertDB(TFLoginCreate.getText().toString(), "GRANT select ON football_club.salary_employee TO ?@'localhost'",TFPassCreate.getText().toString());
+            DB.insertDB(TFLoginCreate.getText(), "GRANT select ON football_club.salary_employee TO ?@'localhost'", TFPassCreate.getText());
             else if(choiceBoxGrand.getSelectionModel().getSelectedItem()==grand.get((1)))
-            DB.insertDB(TFLoginCreate.getText().toString(), "GRANT select ON football_club.player TO ?@'localhost';", TFPassCreate.getText().toString());
+            DB.insertDB(TFLoginCreate.getText(), "GRANT select ON football_club.player TO ?@'localhost';", TFPassCreate.getText());
             else if(choiceBoxGrand.getSelectionModel().getSelectedItem()==grand.get((2)))
-            DB.insertDB(TFLoginCreate.getText().toString(), "GRANT select ON football_club.employeeinfo TO ?@'localhost';", TFPassCreate.getText().toString());
+            DB.insertDB(TFLoginCreate.getText(), "GRANT select ON football_club.employeeinfo TO ?@'localhost';", TFPassCreate.getText());
             else if(choiceBoxGrand.getSelectionModel().getSelectedItem()==grand.get((3)))
-            DB.insertDB(TFLoginCreate.getText().toString(), "GRANT select ON football_club.* TO ?@'localhost';",TFPassCreate.getText().toString());
+            DB.insertDB(TFLoginCreate.getText(), "GRANT select ON football_club.* TO ?@'localhost';", TFPassCreate.getText());
             else if(choiceBoxGrand.getSelectionModel().getSelectedItem()==grand.get((4)))
-            DB.insertDB(TFLoginCreate.getText().toString(), "GRANT ALL ON *.* TO",TFPassCreate.getText().toString());
+            DB.insertDB(TFLoginCreate.getText(), "GRANT ALL ON *.* TO", TFPassCreate.getText());*/
+        if(!TFLoginCreate.getText().equals("")&&!TFPassCreate.getText().equals(""))
+          if(DB.insertDB(TFLoginCreate.getText(),
+                  choiceBoxGrand.getSelectionModel().getSelectedItem().toString(), TFPassCreate.getText()) > 0)
+              MyAlert.ShowAlertInfo("Дані успішно додано");
     }
 
     @FXML
@@ -122,18 +127,19 @@ public class CreateUserController {
     @FXML
     private void UpdateUserInDB() throws SQLException {
         if(ValidDate())
-        DB.updateDB(OldLogin.getText(),
-        NewLogin.getText(),
-        NewPassword.getText());
+            if(   DB.updateDB(OldLogin.getText(),
+                NewLogin.getText(),
+                NewPassword.getText()) > 0){
+                MyAlert.ShowAlertInfo("Дані успішно оновленно");
+            }
+
     }
 
     private boolean ValidDate(){
         System.out.println(OldLogin.getText() + " " + NewLogin.getText() + " " + NewPassword.getText());
-       if( !OldLogin.getText().equalsIgnoreCase("")
-               && !NewLogin.getText().equalsIgnoreCase("")
-               && !NewPassword.getText().equalsIgnoreCase(""))
-       return true;
-       return false;
+        return !OldLogin.getText().equalsIgnoreCase("")
+                && !NewLogin.getText().equalsIgnoreCase("")
+                && !NewPassword.getText().equalsIgnoreCase("");
     }
     @FXML
     private void ShowChoseAction() throws IOException {

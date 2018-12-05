@@ -3,7 +3,6 @@ package Controller;
 import DB.DB;
 import POJO.Employee;
 import POJO.MyAlert;
-import POJO.Player;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -37,8 +36,6 @@ public class EmployeeUpdateDialogController {
 
     private Stage dialogStage;
     private Employee employee;
-    private boolean okClicked = false;
-    private boolean isUpdate = false;
 
 
     /**
@@ -50,12 +47,7 @@ public class EmployeeUpdateDialogController {
         this.dialogStage = dialogStage;
     }
 
-    /**
-     * Sets the person to be edited in the dialog.
-     *
-     * @param player
-     */
-   /* public void setPerson(Player player) {
+    /* public void setPerson(Player player) {
         this.player = player;
         if(player.getBday() != 0)
         isUpdate = true;
@@ -72,7 +64,7 @@ public class EmployeeUpdateDialogController {
      * @return
      */
     public boolean isOkClicked() {
-        return okClicked;
+        return false;
     }
 
 
@@ -115,12 +107,12 @@ public class EmployeeUpdateDialogController {
 
         if (errorMessage.length() == 0) {
             employee = new Employee(this.employee.getId(),
-                    NameField.getText().toString()
-                    ,SurnameField.getText().toString() ,
-                    BdayField.getText().toString() ,
+                    NameField.getText()
+                    , SurnameField.getText(),
+                    BdayField.getText(),
                     CountryField.getText() ,
-                    SignField.getText().toString(),
-                    EndField.getText().toString(),
+                    SignField.getText(),
+                    EndField.getText(),
                     Integer.parseInt(SalaryField.getText()),
                     Integer.parseInt(PhoneField.getText()),
                     PostField.getText()
@@ -140,7 +132,9 @@ public class EmployeeUpdateDialogController {
         // Initialize the person table with the two columns.
         if(this.isInputValid())
 
-            DB.updateDB(employee);
+        if(DB.updateDB(employee) > 0){
+            MyAlert.ShowAlertInfo("Дані успішно оновленно");
+        }
         dialogStage.close();
 
     }

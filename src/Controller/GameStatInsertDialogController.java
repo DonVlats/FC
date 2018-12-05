@@ -5,8 +5,6 @@ import POJO.Game;
 import POJO.GameStat;
 import POJO.MyAlert;
 import POJO.Player;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
@@ -19,8 +17,8 @@ import java.text.ParsePosition;
 import java.util.ArrayList;
 
 public class GameStatInsertDialogController {
-    GameStat gameStat;
-    private ArrayList<Player> personData = new ArrayList<>();
+    private GameStat gameStat;
+    private final ArrayList<Player> personData = new ArrayList<>();
     @FXML
     private ChoiceBox playerCB;
     @FXML
@@ -41,10 +39,6 @@ public class GameStatInsertDialogController {
     private  Game game;
 
 
-    private boolean okClicked = false;
-    private boolean isUpdate = false;
-
-
     /**
      * Sets the stage of this dialog.
      *
@@ -54,12 +48,6 @@ public class GameStatInsertDialogController {
         this.dialogStage = dialogStage;
     }
 
-    /**
-     * Sets the person to be edited in the dialog.
-     *
-     * @param player
-     */
-
 
     /**
      * Returns true if the user clicked OK, false otherwise.
@@ -67,10 +55,11 @@ public class GameStatInsertDialogController {
      * @return
      */
     public boolean isOkClicked() {
-        return okClicked;
+        return false;
     }
 
 
+    @SuppressWarnings("unchecked")
     @FXML
     public void initialize(Game game){
         DecimalFormat format = new DecimalFormat( "#.0" );
@@ -113,7 +102,7 @@ public class GameStatInsertDialogController {
             }
         }));
         startCB.getItems().clear();
-        personData = DB.readDB(    personData,FilterDialogController.selectMessage);
+        DB.readDB(personData);
         for (Player element : personData) {
             playerCB .getItems().addAll(element.getName() + " " + element.getSurname());
         }
@@ -186,10 +175,10 @@ public class GameStatInsertDialogController {
         // Initialize the person table with the two columns.
         if(this.isInputValid()){
 
-            int count = DB.insertDB(gameStat);
-            if(count > 0 ){
-                MyAlert.ShowAlertInfo("Кількість рядків які було встановлено " + count , dialogStage);
-            }
+           if( DB.insertDB(gameStat) > 0)
+               MyAlert.ShowAlertInfo("Дані успішно додано");
+
+
 
             dialogStage.close();
         }}

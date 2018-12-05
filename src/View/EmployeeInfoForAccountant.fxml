@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="479.0" prefWidth="821.0" stylesheets="@../Login.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EmployeeInfoForAccountantController">
+    <Button id="showTable" layoutX="628.0" layoutY="412.0" mnemonicParsing="false" onAction="#initialize" prefHeight="33.0" prefWidth="90.0" text="Вивід" />
+    <ScrollPane prefHeight="347.0" prefWidth="821.0">
+        <TableView id="tableView" fx:id="PlayerTable" prefHeight="340.0" prefWidth="827.0">
+            <columns>
+                <TableColumn id="colID" fx:id="NameColumn" maxWidth="114.00001525878906" minWidth="76.00001525878906" prefWidth="76.00001525878906" text="Ім'я" />
+                <TableColumn id="colTitle" fx:id="SurnameColumn" prefWidth="167.0" text="Прізвище" />
+                <TableColumn id="colDirector" fx:id="SalaryColumn" prefWidth="67.0" text="Зарплата" />
+                <TableColumn id="colYear" fx:id="CountryColumn" prefWidth="120.0" text="Національність" />
+                <TableColumn id="colDirector" fx:id="BdayColumn" prefWidth="152.0" text="Дана народження" />
+                <TableColumn id="colDirector" fx:id="SignColumn" prefWidth="73.0" text="Дата підписання" />
+                <TableColumn id="colDirector" fx:id="EndColumn" prefWidth="69.0" text="Дата завершення контракту" />
+                <TableColumn id="colDirector" fx:id="PostColumn" prefWidth="77.0" text="Посада" />
+            </columns>
+        </TableView>
+    </ScrollPane>
+    <Button layoutX="425.0" layoutY="412.0" mnemonicParsing="false" onAction="#ShowChoseAction" text="Меню" />
+   <Label layoutX="14.0" layoutY="371.0" text="Сума заробітної плати футболістам" />
+   <Label fx:id="SalaryPlayer" layoutX="306.0" layoutY="371.0" text="0" />
+   <Label fx:id="SalaryEmp" layoutX="306.0" layoutY="402.0" text="0" />
+   <Label layoutX="14.0" layoutY="402.0" text="Сума заробітної плати персоналу" />
+   <Label layoutX="14.0" layoutY="429.0" text="Витрати на заробітнуї плату" />
+   <Label fx:id="SalaryAll" layoutX="306.0" layoutY="429.0" text="0" />
+</AnchorPane>

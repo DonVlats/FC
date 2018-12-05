@@ -1,6 +1,7 @@
 package Controller;
 
 import DB.DB;
+import DB.ConnectionDB;
 import POJO.Game;
 import POJO.MyAlert;
 
@@ -8,18 +9,24 @@ import View.MainApp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 public class GameShowInfoController {
     private Stage stage;
-    private ObservableList<Game> gameData = FXCollections.observableArrayList();
+    private final ObservableList<Game> gameData = FXCollections.observableArrayList();
+    @FXML
+    private Button deleteBTN;
+    @FXML
+    private Button insertBTN;
+    @FXML
+    private Button updateBTN;
     @FXML
     private TableView<Game> gameTable;
     @FXML
@@ -36,9 +43,6 @@ public class GameShowInfoController {
     private TableColumn<Game, String> homeColumn;
 
 
-    Connection conn ;
-
-
     @FXML
     public void initialize() {
         System.out.print("setMainApp - 1 \n");
@@ -53,7 +57,7 @@ public class GameShowInfoController {
         homeColumn.setCellValueFactory(cellData -> cellData.getValue().getSThome());
 
         gameTable.setItems(gameData);
-        FilterDialogController.selectMessage = "";
+
         gameTable.setRowFactory(tv -> {
             TableRow<Game> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -71,6 +75,12 @@ public class GameShowInfoController {
                 }
             });
             return row; });
+        String role = DB.readDB(new ConnectionDB().getUsername());
+        if(!"Адмін".equals(role)){
+            deleteBTN.setVisible(false);
+            insertBTN.setVisible(false);
+            updateBTN.setVisible(false);
+        }
     }
     @FXML
     public void ShowStat() throws IOException {
@@ -80,17 +90,9 @@ public class GameShowInfoController {
         else
             MainApp.ShowGameStatInfo(gameTable.getSelectionModel().getSelectedItem(),0);
     }
-    public void setMainApp(ObservableList<Game> mainApp) {
 
-        System.out.print("setMainApp - 1 \n");
-        gameTable.setItems(mainApp);
-    }
-    public ObservableList<Game> getPersonData() {
-        return gameData;
-    }
-
-    public void init() {
-        gameData = DB.readGameDB( gameData);
+    private void init() {
+        DB.readGameDB(gameData);
     }
 
 
@@ -99,34 +101,14 @@ public class GameShowInfoController {
     private void handleNewMovie() {
         Game tempPerson = new Game();
         boolean okClicked =MainApp.showGameInsertDialog();
-        if (okClicked) {
-            ;
-        }
-    }
-    @FXML
-    private void Filter() {
-
-        MainApp.showFilterDialog();
-
-    }
-    private void showPersonDetails(Game player) {
-        if (player != null) {
-        } else {
-            ;
-        }
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
     @FXML
     private void handleEditPerson() {
         Game selectedPerson = gameTable.getSelectionModel().getSelectedItem();
         if (selectedPerson != null) {
-            boolean okClicked = MainApp.showGameUpdatedDialog(selectedPerson);
-            if (okClicked) {
-                showPersonDetails(selectedPerson);
-            }
+           MainApp.showGameUpdatedDialog(selectedPerson);
+
 
         } else {
             MyAlert.ShowAlertError("Виберить запис для редагування", stage);
@@ -150,7 +132,7 @@ public class GameShowInfoController {
 
             if( DB.deleteGameDB(      (gameTable.getSelectionModel().getSelectedItem().getId()))
                     > 0){
-                MyAlert.ShowAlertInfo("Видалено", stage);
+                MyAlert.ShowAlertInfo("Видалено");
             }
             gameTable.getItems().remove(selectedIndex);
         } else {
